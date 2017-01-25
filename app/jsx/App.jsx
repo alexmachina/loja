@@ -1,24 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, hashHistory, Link} from 'react-router';
-import {ProductsPanel} from './products/ProductsPanel.jsx';
+import {ProductsTable} from './products/ProductsTable.jsx';
+import {ProductsForm} from './products/ProductsForm.jsx';
+import {LoginForm} from './users/LoginForm.jsx';
+import {Admin} from './admin/Admin.jsx';
+import {Public} from './public/Public.jsx';
+import Cookies from 'js-cookie';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>App</h1>
-        <h1><Link to="/products">Products</Link></h1>
-        {this.props.children}
-      </div>
-    )
-  }
-}
 
-const rt = (
+let rt = (
   <Router history={hashHistory}>
-    <Route path="/" component={App} >
-      <Route path="/products" component={ProductsPanel}></Route>
+    <Route path="/" component={Public} />
+    <Route path="/admin" component={Admin} >
+      <Route path="/products" component={ProductsTable}></Route>
+      <Route path="/product/:id" component={ProductsForm}></Route>
+      <Route path="/product" component={ProductsForm}></Route>
     </Route>
   </Router>
 )

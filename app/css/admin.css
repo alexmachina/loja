@@ -1,0 +1,39 @@
+.image-gallery li{
+  background-color:#777;
+  display:inline;
+  text-decoration:none;
+  margin-top:10px;
+}
+
+.image-gallery li img {
+  margin-top:15px;
+}
+
+#image-input {
+  display:inline;
+}
+
+#btn-delete-image{
+  margin-top:15px;
+}
+
+#img{
+  max-height:400px;
+}
+
+#login-form {
+  margin:auto;
+  position:absolute;
+  top:50%;
+  bottom:0;
+  right:0;
+  left:0;
+}
+
+#login-form input {
+  font-size:22px;
+}
+
+#login-button {
+  margin-top:15px;
+}
