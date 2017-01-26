@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {ProductRepository} from '../repositories/product.js';
+import {ProductRepository} from '../../repositories/product.js';
 
 export class ProductsTable extends React.Component {
   constructor(props) {

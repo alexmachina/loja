@@ -1,7 +1,7 @@
 import {Link} from 'react-router';
 import React from 'react';
 import Cookies from 'js-cookie';
-
+import { Nav, NavItem, Navbar} from 'react-bootstrap'; 
 export class Admin extends React.Component {
   onLogin(authorization) {
     this.setState({authorization: authorization})
@@ -19,7 +19,20 @@ export class Admin extends React.Component {
     else {
       render = (
         <div className="container">
-          <h1><Link to="/products">Products</Link></h1>
+          <Navbar inverse>
+            <Navbar.Header>
+              <Navbar.Brand>
+                Admin
+              </Navbar.Brand>
+              <Navbar.Toggle />
+            </Navbar.Header>
+            <Navbar.Collapse>
+          <Nav>
+            <NavItem eventKey={1} href="/#/products">Products</NavItem>
+            <NavItem eventKey={2} href="/#/ambiences">Ambiences</NavItem>
+          </Nav>
+        </Navbar.Collapse>
+        </Navbar>
           {this.props.children}
         </div>
       )

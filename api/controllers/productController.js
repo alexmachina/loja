@@ -15,7 +15,6 @@ class ProductController {
     .catch(err => res.status(500).send(err));
   }
   addProduct(req, res) {
-    debugger;
     let p = new productModel(req.body);
 
     if(req.files && req.files.mainImage)

@@ -1,5 +1,5 @@
 import React from 'react';
-import {UserRepository} from '../repositories/user.js';
+import {UserRepository} from '../../repositories/user.js';
 import Cookies from 'js-cookie';
 
 

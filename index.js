@@ -8,6 +8,7 @@ let app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use('/',express.static('app'));
+
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', req.headers.origin || "*");
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, HEAD, DELETE, OPTIONS');
@@ -17,11 +18,11 @@ app.use(function (req, res, next) {
   }
   next();
 });
+
 app.post('/login', userCtrl.login);
 app.use(router);
 
-
-app.listen(3000, err =>{
+app.listen(3000, err => {
   err ? console.log(err) :console.log("Running: 3000");
 
   mongoose.connect('mongodb://localhost/loja');

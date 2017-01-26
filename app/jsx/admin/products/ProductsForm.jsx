@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {ProductRepository} from '../repositories/product.js';
+import {ProductRepository} from '../../repositories/product.js';
 
 export class ProductsForm extends React.Component {
   constructor(props) {
