@@ -1,0 +1,22 @@
+body {
+  font-family: 'Pangolin', cursive;
+}
+#menu {
+  background-color:#4dd2ff;
+}
+
+#brand-link{
+  color:#ffff4d;
+  font-weight:bolder;
+  font-size:32px;
+}
+
+.menu-item a{
+  color:#4d4d4d !important;
+  font-weight:bold;
+  font-size:22px;
+}
+
+.menu-item a:hover{
+  color:white !important;
+}

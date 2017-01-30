@@ -26,13 +26,14 @@ export class ProductRepository {
 
   add(product, cb) {
     let form_data = new FormData();
+    form_data.append('category', product.category);
     form_data.append('name', product.name);
     form_data.append('description', product.description);
     form_data.append('price', product.price)
     form_data.append('mainImage', product.mainImage, 'mainImage');
     form_data.append('active', product.active);
     for(let i = 0; i < product.images.length; i++)
-      //form_data.append('images', product.images[i], 'image'+i);
+      form_data.append('images', product.images[i], 'image'+i);
 
 
 
@@ -43,12 +44,16 @@ export class ProductRepository {
         processData: false,
         contentType:false
       }).done(() => cb(null))
-        .fail(err => cb(err));
+        .fail(err => { 
+          console.log(err);
+          cb(err)
+        });
 
   }
 
   update(product, cb) {
     let form_data = new FormData();
+    form_data.append('category', product.category);
     form_data.append('name', product.name);
     form_data.append('description', product.description);
     form_data.append('price', product.price);

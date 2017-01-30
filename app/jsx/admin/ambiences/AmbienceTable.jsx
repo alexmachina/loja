@@ -25,13 +25,13 @@ export class AmbienceTable extends React.Component{
   render() {
     let tbody = this.state.ambiences.map(a => {
       return (
-        <tr>
+        <tr key={a._id}>
           <td>{a.name}</td>
           <td>{a.description}</td>
-          <td>{a.active}</td>
+          <td>{a.active ? 'S' : 'N'}</td>
           <td>
             <Link to={"/ambience/"+a._id}>
-              <Button type="default">
+              <Button>
                 Editar
               </Button>
             </Link>
@@ -41,7 +41,6 @@ export class AmbienceTable extends React.Component{
       )
 
     });
-    console.log(tbody);
     return (
       <div>
         <div>

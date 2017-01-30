@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {ProductRepository} from '../../repositories/product.js';
+import {CategoryRepository} from '../../repositories/category.js';
 
 export class ProductsForm extends React.Component {
   constructor(props) {
@@ -8,12 +9,15 @@ export class ProductsForm extends React.Component {
     this.state = {
       name: '',
       price: '',
+      category: '',
+      categories: [],
       description: '',
       images: [],
       active: false
     }
 
     this.repository = new ProductRepository('localhost', 3000);
+    this.categoryRepository = new CategoryRepository();
   }
   refresh() {
     this.repository.one(this.props.params.id, (err, p) => {
@@ -22,10 +26,18 @@ export class ProductsForm extends React.Component {
     });
   }
   componentDidMount() {
-
+    this.categoryRepository.getCategories((categories) => {
+      this.setState({categories: categories});
+    });
     if(this.props.params.id) {
       this.refresh();
     }
+
+  }
+
+  onChangeCategory(e) {
+    this.setState({category: e.target.value})
+    console.log(e.target.value);
   }
 
   onChangeName(e) {
@@ -74,9 +86,12 @@ export class ProductsForm extends React.Component {
     let product = this.state;
 
     if(!product._id) {
+      console.log("K");
       this.repository.add(product, (err) => {
         if(!err)
           alert("Added");
+        else
+          console.log("aaa");
       });
     } else {
       this.repository.update(product, (err) => {
@@ -115,6 +130,7 @@ export class ProductsForm extends React.Component {
     let images = null;
     let mainImage = null;
     let errorMsg = null;
+    let options = null;
 
     if(this.state.images.map) {
       images = this.state.images.map(img => {
@@ -140,6 +156,20 @@ export class ProductsForm extends React.Component {
       errorMsg = <span id="error">{this.state.error}</span>
     }
 
+    if(this.state.categories){
+      options = this.state.categories.map(c=> {
+        return (
+          <option value={c._id} key={c._id}>{c.name}</option>)
+      })
+    }
+    if(this.state.categories) {
+    let defaultValue = this.props.params.id ?
+      this.state.category : this.state.categories[0];
+    }
+
+    
+
+
 
     {/* Render */}
     return(
@@ -147,6 +177,17 @@ export class ProductsForm extends React.Component {
         <div className="col-md-6">
           <h1>{this.state.name}</h1>
           <form onSubmit={this.onSubmit.bind(this)}>
+
+            {/*Category field */}
+            <div className="form-group">
+              <label>Category</label>
+              <select value={this.state.category} className="form-control" 
+                onChange={this.onChangeCategory.bind(this)}>
+                <option value="">--- Select ---</option>
+                  {options}
+                </select>
+            </div>
+
             {/*Name Field */}
             <div className="form-group">
               <label>Name</label>

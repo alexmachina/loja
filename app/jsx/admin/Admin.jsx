@@ -2,6 +2,7 @@ import {Link} from 'react-router';
 import React from 'react';
 import Cookies from 'js-cookie';
 import { Nav, NavItem, Navbar} from 'react-bootstrap'; 
+import {LoginForm} from './users/LoginForm.jsx';
 export class Admin extends React.Component {
   onLogin(authorization) {
     this.setState({authorization: authorization})
@@ -30,6 +31,8 @@ export class Admin extends React.Component {
           <Nav>
             <NavItem eventKey={1} href="/#/products">Products</NavItem>
             <NavItem eventKey={2} href="/#/ambiences">Ambiences</NavItem>
+            <NavItem eventKey={3} href="/#/sales">Sales</NavItem>
+            <NavItem href="/#/categories">Categories</NavItem>
           </Nav>
         </Navbar.Collapse>
         </Navbar>

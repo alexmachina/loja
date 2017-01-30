@@ -29,7 +29,7 @@ export class ProductsTable extends React.Component {
         <tr key={p._id}>
           <td>{p.name}</td>
           <td>{p.price}</td>
-          <td>{p.active}</td>
+          <td>{p.active ? 'S' : 'N'}</td>
           <td>
             <Link to={'/product/' + p._id}>
               <button className="btn btn-default">Edit</button>
