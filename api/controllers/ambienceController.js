@@ -7,6 +7,12 @@ class ambienceController {
     find.catch(err => res.status(500).send(err));
 
   }
+
+  getActiveAmbiences(req, res) {
+    let find = ambienceModel.find({active: true}).exec();
+    find.then(ambiences => res.json(ambiences));
+    find.catch(err => res.status(500).send(err));
+  }
   getAmbience(req, res) {
     let find = ambienceModel.findById(req.params.id).exec();
     find.then(ambience => res.json(ambience));

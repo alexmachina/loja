@@ -26,6 +26,18 @@ export class AmbienceRepository {
     }).catch(err => cb(err));
   }
 
+  getActiveAmbiences(cb) {
+    fetch(this.baseUrl + '/ambiences/active')
+    .then(response => {
+      response.json().then(json => {
+        if(response.ok)
+          cb(null, json);
+        else
+          cb(json);
+      });
+    })
+  }
+
   addAmbience(ambience, cb) {
     let form_data = new FormData();
     form_data.append('name', ambience.name);
@@ -40,19 +52,19 @@ export class AmbienceRepository {
       body: form_data,
       headers: this.headers
     }).then(()=> cb())
-    .catch(err => cb(err));
+      .catch(err => cb(err));
   }
 
   updateAmbience(id, ambience, cb) {
-      let form_data = new FormData();
+    let form_data = new FormData();
     form_data.append('name', ambience.name);
     form_data.append('description',ambience.description);
     form_data.append('active', ambience.active);
     if(typeof ambience.mainImage == 'object')
-    form_data.append('mainImage',ambience.mainImage, 'mainImage');
+      form_data.append('mainImage',ambience.mainImage, 'mainImage');
     for(let i = 0; i < ambience.images.length; i++)
       if(typeof ambience.images[i] == 'object')
-      form_data.append('images', ambience.images[i], 'images'+i);
+        form_data.append('images', ambience.images[i], 'images'+i);
 
     fetch(this.baseUrl + '/ambience/' + id, {
       method: 'PUT',

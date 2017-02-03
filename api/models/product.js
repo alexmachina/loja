@@ -7,7 +7,8 @@ let schema = new mongoose.Schema({
   price: Number,
   mainImage: String,
   images:[String],
-  active: {type: Boolean, required:true}
+  active: {type: Boolean, required:true},
+  featured: {type: Boolean, required:true},
 });
 
 module.exports = mongoose.model('Product', schema);

@@ -9,7 +9,8 @@ export class AmbienceForm extends React.Component{
       name: '',
       description: '',
       mainImage: '',
-      images: ''
+      images: '',
+      active: false
     }
 
     this.rep = new AmbienceRepository('http://localhost', 3000);
@@ -22,6 +23,10 @@ export class AmbienceForm extends React.Component{
   onDescriptionChange(e) {
     this.setState({description: e.target.value});
   }
+
+  onActiveChange(e){ 
+    this.setState({active: !this.state.active});
+   }
 
   onImagesChange(e) {
     this.setState({images: e.target.files});
@@ -103,6 +108,14 @@ export class AmbienceForm extends React.Component{
               placeholder="Descrição"
               onChange={this.onDescriptionChange.bind(this)}
               value={this.state.description}
+            ></FormControl>
+          </FormGroup>
+          <FormGroup>
+            <ControlLabel>Ativo</ControlLabel>
+            <FormControl type="checkbox"
+              onChange={this.onActiveChange.bind(this)}
+              value={this.state.active}
+              checked={this.state.active}
             ></FormControl>
           </FormGroup>
 

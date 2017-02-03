@@ -13,7 +13,9 @@ export class ProductsForm extends React.Component {
       categories: [],
       description: '',
       images: [],
-      active: false
+      active: false,
+      featured: false
+
     }
 
     this.repository = new ProductRepository('localhost', 3000);
@@ -62,6 +64,10 @@ export class ProductsForm extends React.Component {
     this.setState({active: !this.state.active});
   }
 
+  onChangeFeatured(e) {
+    this.setState({featured: !this.state.featured});
+  }
+
   onChangeMainImage(e) {
     this.setState({'mainImage' : e.target.files[0]});
 
@@ -86,12 +92,11 @@ export class ProductsForm extends React.Component {
     let product = this.state;
 
     if(!product._id) {
-      console.log("K");
       this.repository.add(product, (err) => {
         if(!err)
           alert("Added");
         else
-          console.log("aaa");
+          console.log(err);
       });
     } else {
       this.repository.update(product, (err) => {
@@ -108,6 +113,9 @@ export class ProductsForm extends React.Component {
       this.state.newImages, (err) => {
         if(!err) {
           this.refresh();
+        }
+        else {
+          console.log(err);
         }
       });
   }
@@ -163,11 +171,11 @@ export class ProductsForm extends React.Component {
       })
     }
     if(this.state.categories) {
-    let defaultValue = this.props.params.id ?
-      this.state.category : this.state.categories[0];
+      let defaultValue = this.props.params.id ?
+        this.state.category : this.state.categories[0];
     }
 
-    
+
 
 
 
@@ -184,8 +192,8 @@ export class ProductsForm extends React.Component {
               <select value={this.state.category} className="form-control" 
                 onChange={this.onChangeCategory.bind(this)}>
                 <option value="">--- Select ---</option>
-                  {options}
-                </select>
+                {options}
+              </select>
             </div>
 
             {/*Name Field */}
@@ -218,58 +226,65 @@ export class ProductsForm extends React.Component {
                 checked={this.state.active}
               />
             </div>
+            <div className="fieldset">
+              <label>Featured</label>
+              <input type="checkbox" className="form-control"
+                onChange={this.onChangeFeatured.bind(this)}
+                value={this.state.featured}
+                checked={this.state.featured} />
+            </div>
 
             {/*Main Image Field */}
             {mainImage}
             <div className="form-group">
               <label>Main Image</label>
-      <input className="form-control" type="file"
-        name="mainImage" onChange={this.onChangeMainImage.bind(this)} />
-    </div>
+              <input className="form-control" type="file"
+                name="mainImage" onChange={this.onChangeMainImage.bind(this)} />
+            </div>
 
-      {/*Button*/ }
-      <div className="form-group">
-        <button className="btn btn-primary form-control">Save</button>
-      </div>
-    </form>
-  </div>
-  {/*Gallery */}
-      <div className="col-md-6 image-gallery">
-        {errorMsg}
-        {/*Controls */}
-        <div className="text-right">
-      <input type="file" name="images" multiple id="image-input"
-        onChange={this.onChangeImages.bind(this)}/>
-      <button className="btn btn-default" onClick={this.onUploadClick.bind(this)}>Upload</button>
-    </div>
-    {/* Images */}
-      <ul className="gallery">
-        {images}
-      </ul>
-    </div>
-
-    {/* Modal */}
-      <div id="imageModal" className="modal fade" tabIndex="-1" role="dialog">
-        <div className="modal-dialog">
-      <div className="modal-content">
-      <div className="modal-header text-right">
-      <button type="button" data-dismiss="modal"
-      className="btn btn-default ">&times;</button>
-      </div>
-      <div className="modal-body">
-        <div>
-          <img id="img" className="img img-responsive"/>
+            {/*Button*/ }
+            <div className="form-group">
+              <button className="btn btn-primary form-control">Save</button>
+            </div>
+          </form>
         </div>
-        <div>
-      <button className="btn btn-danger form-control"
-        id="btn-delete-image" onClick={this.onDeleteClick.bind(this)}>
-      Delete</button>
-  </div>
-</div>
-  </div>
-  </div>
-</div>
+        {/*Gallery */}
+        <div className="col-md-6 image-gallery">
+          {errorMsg}
+          {/*Controls */}
+          <div className="text-right">
+            <input type="file" name="images" multiple id="image-input"
+              onChange={this.onChangeImages.bind(this)}/>
+            <button className="btn btn-default" onClick={this.onUploadClick.bind(this)}>Upload</button>
+          </div>
+          {/* Images */}
+          <ul className="gallery">
+            {images}
+          </ul>
+        </div>
+
+        {/* Modal */}
+        <div id="imageModal" className="modal fade" tabIndex="-1" role="dialog">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header text-right">
+                <button type="button" data-dismiss="modal"
+                  className="btn btn-default ">&times;</button>
+              </div>
+              <div className="modal-body">
+                <div>
+                  <img id="img" className="img img-responsive"/>
+                </div>
+                <div>
+                  <button className="btn btn-danger form-control"
+                    id="btn-delete-image" onClick={this.onDeleteClick.bind(this)}>
+                    Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      )
-      }
-      }
+    )
+  }
+}

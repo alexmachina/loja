@@ -1,6 +1,13 @@
 let productModel = require('../models/product');
+let categoryModel = require('../models/category');
 
 class ProductController {
+
+  getProductsByCategory(req, res) {
+    let find = categoryModel.find({}).populate('products').exec();
+    find.then(categories => res.send(categories));
+    find.catch(err => res.status(500).send(err));
+  }
 
   getProducts(req, res) {
     let find = productModel.find({});
@@ -9,6 +16,19 @@ class ProductController {
 
     find.catch(err => res.status(500).send(err));
   }
+
+  getActiveProducts(req, res) {
+    let find = productModel.find({active: true}).exec();
+    find.then(products => res.json(products));
+    find.catch(err => res.status(500).send(err));
+  }
+
+  getFeatureProducts(req, res) {
+    let find = productModel.find({featured: true, active: true});
+    find.then(products => res.json(products));
+    find.catch(err => res.status(500).send(err));
+  }
+
   getProduct(req, res) {
     productModel.findById(req.params.id).exec()
     .then(prod => res.json(prod))
@@ -23,7 +43,14 @@ class ProductController {
     p.images = req.files.images.map((i) => i.filename);
 
     p.save()
-    .then(() => res.send())
+    .then((newProduct) => { 
+      categoryModel.findById(p.category).exec().then(category => {
+        category.products.push(newProduct._id);
+        category.save().then(() => {
+          res.send();
+        })
+      })
+    })
     .catch(err => res.status(500).send(err));
   }
   updateProduct(req, res) {

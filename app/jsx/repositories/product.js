@@ -18,6 +18,24 @@ export class ProductRepository {
       });
   }
 
+  allFeatured(cb) {
+    fetch(this.baseUrl + '/products/featured')
+    .then(response => {
+      response.json().then(json => {
+        cb(json);
+      })
+    })
+  }
+
+  allActive(cb) {
+    fetch(this.baseUrl + '/products/active')
+    .then(response => {
+      response.json().then(response => {
+        cb(json);
+      })
+    })
+  }
+
   one(id, cb) {
     $.get(this.baseUrl + '/product/'  + id)
       .done(product => cb(null, product))
@@ -32,6 +50,7 @@ export class ProductRepository {
     form_data.append('price', product.price)
     form_data.append('mainImage', product.mainImage, 'mainImage');
     form_data.append('active', product.active);
+    form_data.append('featured', product.featured);
     for(let i = 0; i < product.images.length; i++)
       form_data.append('images', product.images[i], 'image'+i);
 
@@ -58,6 +77,7 @@ export class ProductRepository {
     form_data.append('description', product.description);
     form_data.append('price', product.price);
     form_data.append('active', product.active);
+    form_data.append('featured', product.featured);
     
     if(typeof product.mainImage == 'object')
       form_data.append('mainImage', product.mainImage, 'mainImage');

@@ -31,6 +31,8 @@ router.post('/product',auth, uploadProduct.fields([{name: 'mainImage', maxCount:
 router.put('/product/:id', auth,uploadProduct.fields([{name: 'mainImage', maxCount:1}, {name:'images', maxCount:15}]), productCtrl.updateProduct);
 router.post('/product/:id/addImages',auth, uploadProduct.array('images', 10), productCtrl.addImages);
 router.post('/product/:id/removeImages',auth, productCtrl.removeImages);
+router.get('/products/active', productCtrl.getActiveProducts);
+router.get('/products/featured', productCtrl.getFeatureProducts);
 
 let uploadFields = uploadAmbience.fields([
   {name: 'mainImage', maxCount: 1},
@@ -38,6 +40,7 @@ let uploadFields = uploadAmbience.fields([
 ]);
 router.get('/ambiences', ambienceCtrl.getAmbiences);
 router.get('/ambience/:id', ambienceCtrl.getAmbience);
+router.get('/ambiences/active', ambienceCtrl.getActiveAmbiences);
 router.post('/ambience', auth,uploadFields, ambienceCtrl.addAmbience);
 router.put('/ambience/:id', auth,uploadFields, ambienceCtrl.updateAmbience);
 

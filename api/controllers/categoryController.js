@@ -8,8 +8,11 @@ class categoryController {
   }
 
   getCategory(req, res) {
-    let find = categoryModel.findById(req.params.id).exec();
-    find.then(category => res.json(category));
+    let find = categoryModel.findById(req.params.id).populate('categories').exec();
+    find.then(category => {
+      console.log(category);
+      res.json(category) 
+    });
     find.catch(err => res.status(500).catch(err));
 
   }

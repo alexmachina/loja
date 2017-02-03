@@ -10,7 +10,7 @@ export class AmbiencesStrip extends React.Component {
   }
 
   componentDidMount() {
-    this.rep.getAmbiences((err, ambiences) => {
+    this.rep.getActiveAmbiences((err, ambiences) => {
       if(!err) 
         this.setState({ambiences: ambiences});
       else
