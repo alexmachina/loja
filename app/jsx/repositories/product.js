@@ -8,14 +8,23 @@ export class ProductRepository {
       headers: {'authorization': Cookies.get('authorization')}
     });
   }
-  all(cb) {
+  all(page,cb) {
     $.ajax({
       method:'GET',
-      url: this.baseUrl + '/products',
+      url: this.baseUrl + '/products/' + page,
     }).done(products => cb(null,products))
       .fail((err, xhr) =>{ 
         cb(err)
       });
+  }
+
+  getProductsCount(cb) {
+    fetch(this.baseUrl + '/productsCount')
+    .then(response => {
+      response.json().then(json => {
+        cb(null, json);
+      })
+    })
   }
 
   allFeatured(cb) {

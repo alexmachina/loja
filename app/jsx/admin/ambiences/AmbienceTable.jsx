@@ -1,6 +1,6 @@
 import React from 'react';
 import {AmbienceRepository} from '../../repositories/ambience';
-import {Button, Table} from 'react-bootstrap';
+import {Button, Table, Col, Pagination} from 'react-bootstrap';
 import {Link} from 'react-router';
 
 export class AmbienceTable extends React.Component{
@@ -9,18 +9,44 @@ export class AmbienceTable extends React.Component{
     this.rep = new AmbienceRepository('http://localhost', 3000);
     this.state = {
       message: "",
-      ambiences: []
+      ambiences: [],
+      activePage: 1,
+      maxPages: 0
     }
 
   }
 
-  componentDidMount() {
-    this.rep.getAmbiences((err, ambiences) => {
+  handleSelect(page) {
+    this.rep.getAmbiences(page, (err, ambiences) => {
       if(!err) {
-        this.setState({ambiences: ambiences});
+        this.setState({ambiences: ambiences,
+                      activePage: page
+        });
+
       }
     })
 
+  }
+
+  componentDidMount() {
+    this.rep.getAmbiences(this.state.activePage, (err, ambiences) => {
+      if(!err) {
+        this.rep.getAmbiencesCount((err, count) => {
+          if(!err) {
+            let maxPages = Math.ceil((count/10));
+            this.setState({ambiences: ambiences,
+              maxPages: maxPages
+            });
+          } else {
+            console.log(err);
+          }
+        });
+      } else {
+        console.log(err);
+
+      }
+
+    })
   }
   render() {
     let tbody = this.state.ambiences.map(a => {
@@ -43,7 +69,15 @@ export class AmbienceTable extends React.Component{
     });
     return (
       <div>
-        <div>
+        <div className="row">
+          <Col md={6}>
+            <Pagination
+              bsSize="medium"
+              items={this.state.maxPages}
+              activePage={this.state.activePage}
+              onSelect={this.handleSelect.bind(this)} >
+            </Pagination>
+          </Col>
           <Link to="/ambience">
             <Button>Novo</Button>
           </Link>
@@ -58,7 +92,7 @@ export class AmbienceTable extends React.Component{
             </tr>
           </thead>
           <tbody>
-              {tbody}
+            {tbody}
           </tbody>
         </Table>
       </div>

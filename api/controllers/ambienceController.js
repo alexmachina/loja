@@ -2,10 +2,23 @@ let ambienceModel = require('../models/ambience');
 
 class ambienceController {
   getAmbiences(req, res) {
-    let find = ambienceModel.find({}).exec();
-    find.then(ambiences => res.json(ambiences));
+    let find = ambienceModel.find({})
+      .limit(10)
+      .skip((req.params.page - 1) * 10)
+      .exec();
+      find.then(ambiences => { res.json(ambiences)
+    });
     find.catch(err => res.status(500).send(err));
 
+  }
+
+  getAmbiencesCount(req, res) {
+    let find = ambienceModel.find({}).count().exec()
+    find.then(c => {
+      res.json(c);
+    })
+
+    find.catch(e => res.status(500).send(err));
   }
 
   getActiveAmbiences(req, res) {

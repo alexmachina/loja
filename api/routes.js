@@ -25,7 +25,7 @@ let auth = (req, res, next) => {
 }
 
 router.get('/', (req,res) => res.send("OK"));
-router.get('/products', productCtrl.getProducts);
+router.get('/products/:page', productCtrl.getProducts);
 router.get('/product/:id', productCtrl.getProduct);
 router.post('/product',auth, uploadProduct.fields([{name: 'mainImage', maxCount:1}, {name:'images', maxCount:15}]), productCtrl.addProduct);
 router.put('/product/:id', auth,uploadProduct.fields([{name: 'mainImage', maxCount:1}, {name:'images', maxCount:15}]), productCtrl.updateProduct);
@@ -33,16 +33,18 @@ router.post('/product/:id/addImages',auth, uploadProduct.array('images', 10), pr
 router.post('/product/:id/removeImages',auth, productCtrl.removeImages);
 router.get('/products/active', productCtrl.getActiveProducts);
 router.get('/products/featured', productCtrl.getFeatureProducts);
+router.get('/productsCount', productCtrl.getProductsCount);
 
 let uploadFields = uploadAmbience.fields([
   {name: 'mainImage', maxCount: 1},
   {name:'images', maxCount:15}
 ]);
-router.get('/ambiences', ambienceCtrl.getAmbiences);
+router.get('/ambiences/:page', ambienceCtrl.getAmbiences);
 router.get('/ambience/:id', ambienceCtrl.getAmbience);
 router.get('/ambiences/active', ambienceCtrl.getActiveAmbiences);
 router.post('/ambience', auth,uploadFields, ambienceCtrl.addAmbience);
 router.put('/ambience/:id', auth,uploadFields, ambienceCtrl.updateAmbience);
+router.get('/ambiencesCount', ambienceCtrl.getAmbiencesCount);
 
 router.get('/sales', saleCtrl.getSales);
 router.get('/sale/:id', saleCtrl.getSale);

@@ -6,8 +6,8 @@ export class AmbienceRepository {
         authorization: Cookies.get('authorization')
     });
   }
-  getAmbiences(cb){
-    let request = new Request(this.baseUrl + '/ambiences', {
+  getAmbiences(page,cb){
+    let request = new Request(this.baseUrl + '/ambiences/' + page, {
       headers: this.headers
     });
     fetch(request).then(response => {
@@ -36,6 +36,18 @@ export class AmbienceRepository {
           cb(json);
       });
     })
+  }
+
+  getAmbiencesCount(cb) {
+    fetch(this.baseUrl + '/ambiencesCount')
+    .then(response => {
+      response.json().then(json => {
+        if(response.ok)
+          cb(null, json)
+        else
+          cb(json);
+      });
+    });
   }
 
   addAmbience(ambience, cb) {

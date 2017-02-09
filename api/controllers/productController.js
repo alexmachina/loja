@@ -10,10 +10,23 @@ class ProductController {
   }
 
   getProducts(req, res) {
-    let find = productModel.find({});
+    let find = productModel.find({})
+      .limit(10)
+      .skip((req.params.page -1) * 10)
+      .exec();
+    console.log(req.params.page);
 
     find.then(prods => res.json(prods));
 
+    find.catch(err => {
+      res.status(500).send(err);
+      console.log(err);
+    })
+  }
+
+  getProductsCount(req, res) {
+    let find = productModel.find({}).count().exec();
+    find.then(c => res.json(c));
     find.catch(err => res.status(500).send(err));
   }
 
@@ -31,27 +44,27 @@ class ProductController {
 
   getProduct(req, res) {
     productModel.findById(req.params.id).exec()
-    .then(prod => res.json(prod))
-    .catch(err => res.status(500).send(err));
+      .then(prod => res.json(prod))
+      .catch(err => res.status(500).send(err));
   }
   addProduct(req, res) {
     let p = new productModel(req.body);
 
     if(req.files && req.files.mainImage)
-    p.mainImage = req.files.mainImage[0].filename;
+      p.mainImage = req.files.mainImage[0].filename;
     if(req.files && req.files.images)
-    p.images = req.files.images.map((i) => i.filename);
+      p.images = req.files.images.map((i) => i.filename);
 
     p.save()
-    .then((newProduct) => { 
-      categoryModel.findById(p.category).exec().then(category => {
-        category.products.push(newProduct._id);
-        category.save().then(() => {
-          res.send();
+      .then((newProduct) => { 
+        categoryModel.findById(p.category).exec().then(category => {
+          category.products.push(newProduct._id);
+          category.save().then(() => {
+            res.send();
+          })
         })
       })
-    })
-    .catch(err => res.status(500).send(err));
+      .catch(err => res.status(500).send(err));
   }
   updateProduct(req, res) {
     let product = req.body;
@@ -90,7 +103,7 @@ class ProductController {
       if(err){
         return res.status(500).send(err);
       }
-        product.images.splice(product.images.indexOf(req.body.image), 1);
+      product.images.splice(product.images.indexOf(req.body.image), 1);
       product.save().then(() => res.send());
     }); //findById
   }

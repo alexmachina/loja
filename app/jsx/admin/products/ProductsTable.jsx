@@ -1,24 +1,46 @@
 import React from 'react';
 import {Link} from 'react-router';
+import {Glyphicon ,Col, Pagination, Button} from 'react-bootstrap';
 import {ProductRepository} from '../../repositories/product.js';
 
 export class ProductsTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {products: []};
+    this.state = {
+      products: [],
+      activePage: 1,
+      maxPages: 0
+      
+    };
   }
 
   componentDidMount() {
-    this.refreshTable();
+    this.refreshTable(1);
   }
-  refreshTable() {
+
+  handleSelect(page) {
+    this.setState({activePage: page});
+    this.refreshTable(page);
+  }
+
+  
+  refreshTable(page) {
     let rep = new ProductRepository('localhost', 3000);
-    rep.all((err, products) => {
+    rep.all(page, (err, products) => {
       if (err) {
         this.setState({error: err});
       }
       else {
-        this.setState({products: products});
+        rep.getProductsCount((err, count) => {
+          if(!err){
+            this.setState({products: products,
+              maxPages:Math.ceil(count/10)
+            });
+          } else {
+            console.log(err);
+          }
+        })
+
       }
     });
 
@@ -39,13 +61,32 @@ export class ProductsTable extends React.Component {
           </td>
         </tr>
       )
-    })
+    });
+
+    const paginationStyle = {
+      margin:0
+    }
     return (
       <div className="container">
         <div className="row">
-          <Link to="/product">
-            New
-          </Link>
+          <Col md={6}>
+            <Pagination
+              style={paginationStyle}
+              bsSize="medium"
+              items={this.state.maxPages}
+              activePage={this.state.activePage}
+              onSelect={this.handleSelect.bind(this)} />
+          </Col>
+          <Col className="text-right" md={6}>
+            <Link to="/product">
+              <Button 
+                bsSize="large"
+                bsStyle="primary"
+                style={{'margin-right':'15px'}}
+              ><Glyphicon glyph="plus" /></Button>
+            </Link>
+          </Col>
+
         </div>
         <div className="row">
           <table className="table table-striped">
