@@ -1,6 +1,6 @@
 import React from 'react';
 import {CategoryRepository} from '../../repositories/category.js';
-import {Button, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
+import {Jumbotron, Col, Button, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 
 export class CategoryForm extends React.Component {
   constructor(props) {
@@ -47,8 +47,14 @@ export class CategoryForm extends React.Component {
   }
 
   render() {
+    let headerText = this.state._id ? this.state.name : 'New Category';
     return (
       <div>
+        <Col xs={12}>
+          <Jumbotron>
+            <h1 className="text-center">{headerText}</h1>
+          </Jumbotron>
+        </Col>
         <form onSubmit={this.onSubmit.bind(this)}>
           <FormGroup>
             <ControlLabel>Nome</ControlLabel>

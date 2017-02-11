@@ -18,31 +18,43 @@ export class ProductRepository {
       });
   }
 
-  getProductsCount(cb) {
-    fetch(this.baseUrl + '/productsCount')
+  getProductsByName(name, page, cb){
+    fetch(`${this.baseUrl}/productsByName/${name}/${page}`)
     .then(response => {
       response.json().then(json => {
-        cb(null, json);
+        if(response.ok)
+          cb(null, json);
+        else
+          cb(json);
       })
     })
+  }
+
+  getProductsCount(cb) {
+    fetch(this.baseUrl + '/productsCount')
+      .then(response => {
+        response.json().then(json => {
+          cb(null, json);
+        })
+      })
   }
 
   allFeatured(cb) {
     fetch(this.baseUrl + '/products/featured')
-    .then(response => {
-      response.json().then(json => {
-        cb(json);
+      .then(response => {
+        response.json().then(json => {
+          cb(json);
+        })
       })
-    })
   }
 
   allActive(cb) {
     fetch(this.baseUrl + '/products/active')
-    .then(response => {
-      response.json().then(response => {
-        cb(json);
+      .then(response => {
+        response.json().then(response => {
+          cb(json);
+        })
       })
-    })
   }
 
   one(id, cb) {
@@ -65,17 +77,17 @@ export class ProductRepository {
 
 
 
-      $.ajax({
-        method: 'POST',
-        data: form_data,
-        url: this.baseUrl + '/product',
-        processData: false,
-        contentType:false
-      }).done(() => cb(null))
-        .fail(err => { 
-          console.log(err);
-          cb(err)
-        });
+    $.ajax({
+      method: 'POST',
+      data: form_data,
+      url: this.baseUrl + '/product',
+      processData: false,
+      contentType:false
+    }).done(() => cb(null))
+      .fail(err => { 
+        console.log(err);
+        cb(err)
+      });
 
   }
 
@@ -87,7 +99,7 @@ export class ProductRepository {
     form_data.append('price', product.price);
     form_data.append('active', product.active);
     form_data.append('featured', product.featured);
-    
+
     if(typeof product.mainImage == 'object')
       form_data.append('mainImage', product.mainImage, 'mainImage');
     if(typeof product.images == 'object' && product.images.length) {

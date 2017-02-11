@@ -7,17 +7,44 @@ export class SaleRepository {
       'authorization' : Cookies.get('authorization')
     });
   }
-  getSales(cb) {
-    fetch(this.baseUrl+'/sales',{
+  getSales(page, cb) {
+    fetch(this.baseUrl+'/sales/'+page,{
       headers: this.headers
     }).then(response => {
       response.json().then(json => {
-        cb(null, json);
+        if(response.ok) {
+          cb(null, json);
+        }
+        else
+          cb(json)
       }).catch(err => cb(err));
     }).catch(err => cb(err));
 
-
   }
+  getSalesCount(cb) {
+    fetch(`${this.baseUrl}/salesCount`)
+    .then(response => {
+      response.json().then(json => {
+        if (response.ok)
+          cb(null, json);
+        else
+          cb(json);
+      })
+    })
+  }
+
+  getSalesByName(name, page, cb) {
+    fetch(`${this.baseUrl}/salesByName/${name}/${page}`)
+    .then(response => {
+      response.json().then(json => {
+        if(response.ok)
+          cb(null, json);
+        else
+          cb(json);
+      });
+    });
+  }
+  
   getSale(id, cb){
     fetch(this.baseUrl + '/sale/' + id, {
       headers:this.headers
@@ -41,7 +68,7 @@ export class SaleRepository {
       method: 'POST',
       body: form_data
     }).then((response) => {
-        cb();
+      cb();
     });
 
   }

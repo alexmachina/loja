@@ -4,8 +4,8 @@ export class CategoryRepository {
     this.baseUrl = config.url;
   }
 
-  getCategories(cb) {
-    fetch(this.baseUrl+'/categories')
+  getCategories(page, cb) {
+    fetch(this.baseUrl+'/categories/'+page)
     .then(response => {
       response.json().then(json => {
         cb(json);
@@ -13,13 +13,37 @@ export class CategoryRepository {
     });
   }
 
+  getCategoriesByName(name, page, cb) {
+    fetch(this.baseUrl + '/categoriesByName/' + name + '/' + page)
+      .then(response => {
+        response.json().then(json => {
+          if(response.ok)
+            cb(null, json.categories);
+          else
+            cb(json);
+        });
+      });
+  }
+
+  getCategoriesCount(cb) {
+    fetch(this.baseUrl+'/categoriesCount')
+      .then(response => {
+        response.json().then(json => {
+          if(response.ok)
+            cb(null, json);
+          else
+            cb(json);
+        });
+      });
+  }
+
   getCategory(id, cb) {
     fetch(this.baseUrl+'/category/'+id)
-    .then(response => {
-      response.json().then(json => {
-        cb(json);
+      .then(response => {
+        response.json().then(json => {
+          cb(json);
+        })
       })
-    })
   }
 
   addCategory(category, cb) {
@@ -35,7 +59,7 @@ export class CategoryRepository {
           cb(json)
         })
       }
-       
+
     })
   }
 

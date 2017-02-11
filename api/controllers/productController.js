@@ -9,6 +9,28 @@ class ProductController {
     find.catch(err => res.status(500).send(err));
   }
 
+  getProductsByName(req, res) {
+    let query = {name: new RegExp(req.params.name, 'i')};
+
+    let findByName =
+      productModel.find(query)
+      .skip((req.params.page -1) * 10)
+      .limit(10)
+      .exec()
+
+    let findCount = 
+      productModel.find(query).count().exec()
+
+    Promise.all([findByName, findCount])
+      .then(results => {
+        res.json({
+          products: results[0],
+          count: results[1]
+        });
+      })
+
+  }
+
   getProducts(req, res) {
     let find = productModel.find({})
       .limit(10)

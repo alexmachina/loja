@@ -16,38 +16,48 @@ export class AmbienceRepository {
       }).catch(err => cb(err));
     }).catch(err => cb(err));
   }
-
+  getAmbiencesByName(name, page, cb) {
+    fetch(`${this.baseUrl}/ambiencesByName/${name}/${page}`)
+      .then(response => {
+        response.json().then(json => {
+          if(response.ok)
+            cb(null, json);
+          else
+            cb(json);
+        });
+      });
+  }
   getAmbience(id, cb) {
     fetch(this.baseUrl + '/ambience/' + id, {headers: this.headers})
-    .then(response => {
-      response.json().then(json => {
-        cb(null, json);
+      .then(response => {
+        response.json().then(json => {
+          cb(null, json);
+        }).catch(err => cb(err));
       }).catch(err => cb(err));
-    }).catch(err => cb(err));
   }
 
   getActiveAmbiences(cb) {
     fetch(this.baseUrl + '/ambiences/active')
-    .then(response => {
-      response.json().then(json => {
-        if(response.ok)
-          cb(null, json);
-        else
-          cb(json);
-      });
-    })
+      .then(response => {
+        response.json().then(json => {
+          if(response.ok)
+            cb(null, json);
+          else
+            cb(json);
+        });
+      })
   }
 
   getAmbiencesCount(cb) {
     fetch(this.baseUrl + '/ambiencesCount')
-    .then(response => {
-      response.json().then(json => {
-        if(response.ok)
-          cb(null, json)
-        else
-          cb(json);
+      .then(response => {
+        response.json().then(json => {
+          if(response.ok)
+            cb(null, json)
+          else
+            cb(json);
+        });
       });
-    });
   }
 
   addAmbience(ambience, cb) {

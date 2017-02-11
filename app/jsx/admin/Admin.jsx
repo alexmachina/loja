@@ -19,7 +19,7 @@ export class Admin extends React.Component {
     }
     else {
       render = (
-        <div className="container">
+        <div className="container" style={{fontFamily: 'arial'}}>
           <Navbar inverse>
             <Navbar.Header>
               <Navbar.Brand>
@@ -35,9 +35,11 @@ export class Admin extends React.Component {
             <NavItem href="/#/categories">Categories</NavItem>
           </Nav>
         </Navbar.Collapse>
-        </Navbar>
-          {this.props.children}
-        </div>
+      </Navbar>
+      <div >
+        {this.props.children}
+      </div>
+    </div>
       )
     }
 

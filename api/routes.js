@@ -34,6 +34,7 @@ router.post('/product/:id/removeImages',auth, productCtrl.removeImages);
 router.get('/products/active', productCtrl.getActiveProducts);
 router.get('/products/featured', productCtrl.getFeatureProducts);
 router.get('/productsCount', productCtrl.getProductsCount);
+router.get('/productsByName/:name/:page', productCtrl.getProductsByName);
 
 let uploadFields = uploadAmbience.fields([
   {name: 'mainImage', maxCount: 1},
@@ -45,16 +46,22 @@ router.get('/ambiences/active', ambienceCtrl.getActiveAmbiences);
 router.post('/ambience', auth,uploadFields, ambienceCtrl.addAmbience);
 router.put('/ambience/:id', auth,uploadFields, ambienceCtrl.updateAmbience);
 router.get('/ambiencesCount', ambienceCtrl.getAmbiencesCount);
+router.get('/ambiencesByName/:name/:page', ambienceCtrl.getAmbiencesByName);
 
-router.get('/sales', saleCtrl.getSales);
+router.get('/sales/:page', saleCtrl.getSales);
 router.get('/sale/:id', saleCtrl.getSale);
 router.post('/sale', uploadSale.single('mainImage'), saleCtrl.addSale);
 router.put('/sale/:id', uploadSale.single('mainImage'), saleCtrl.updateSale);
+router.get('/salesCount', saleCtrl.getSalesCount);
+router.get('/salesByName/:name/:page', saleCtrl.getSalesByName);
 
-router.get('/categories', categoryCtrl.getCategories);
+
+router.get('/categories/:page', categoryCtrl.getCategories);
 router.get('/category/:id', categoryCtrl.getCategory);
 router.post('/category', categoryCtrl.addCategory);
 router.put('/category/:id', categoryCtrl.updateCategory);
+router.get('/categoriesCount', categoryCtrl.getCategoriesCount);
+router.get('/categoriesByName/:name/:page', categoryCtrl.getCategoriesByName);
 
 
 

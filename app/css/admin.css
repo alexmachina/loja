@@ -41,3 +41,9 @@
 #ambience-submit-button{
   margin-top:20px;
 }
+
+.add-button{
+  color:white;
+  background-color:green;
+  margin-bottom:15px;
+}
