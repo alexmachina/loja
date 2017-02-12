@@ -1,13 +1,15 @@
 import React from 'react';
 import {CategoryRepository} from '../../repositories/category.js';
 import {Jumbotron, Col, Button, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
+import {Input} from '../components/Input.jsx';
 
 export class CategoryForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: '',
-      description: ''
+      description: '',
+      canSubmit: false
     }
     this.rep = new CategoryRepository();
   }
@@ -46,6 +48,10 @@ export class CategoryForm extends React.Component {
     this.setState({description: e.target.value});
   }
 
+  validateName(name) {
+    return name ? true : false;
+  }
+
   render() {
     let headerText = this.state._id ? this.state.name : 'New Category';
     return (
@@ -57,20 +63,31 @@ export class CategoryForm extends React.Component {
         </Col>
         <form onSubmit={this.onSubmit.bind(this)}>
           <FormGroup>
-            <ControlLabel>Nome</ControlLabel>
-            <FormControl ref="nameInput" type="text"
-              placeholder="Nome"
+            <Input label="Nome"
               onChange={this.onNameChange.bind(this)}
               value={this.state.name}
-            >
-            </FormControl>
+              validationMessage="this field is required"
+              validate={this.validateName.bind(this)}
+            />
+            <ControlLabel>Nome</ControlLabel>
+	    <FormControl type="text"
+              placeholder="Name"
+              onChange={this.onNameChange.bind(this)}
+              value={this.state.name}
+              required
+            />
+
+          
           </FormGroup>
           <FormGroup>
             <ControlLabel>Descrição</ControlLabel>
             <FormControl type="text"
               placeholder="Descrição"
               onChange={this.onDescriptionChange.bind(this)}
-              value={this.state.description}>
+              value={this.state.description}
+              required
+              validationError="asifjdk"
+            >
             </FormControl>
           </FormGroup>
 

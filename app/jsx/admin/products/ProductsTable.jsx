@@ -22,10 +22,10 @@ export class ProductsTable extends React.Component {
 
   handleSelect(page) {
     this.setState({activePage: page});
-    if(this.state.search) {
+    if(!this.state.search) {
       this.refreshTable(page);
     }
-    else{
+    else {
       this.searchByName(this.state.search, page);
     }
   }
