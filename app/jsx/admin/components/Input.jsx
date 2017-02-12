@@ -15,22 +15,22 @@ export class Input extends React.Component{
   }
   render() {
     let message = this.state.message;
-    let className = null;
 
-    className = 'invalid';
+    let className = 'form-control-danger';
     return(
-      <div>
+      <div className="form-group row has-danger">
         <label>{this.props.label}</label>
         <input type="text" 
           value={this.props.value}
           onChange={this.props.onChange}
-          className={className}
+          className={'form-control form-control-danger' + className}
           onBlur={this.onBlur.bind(this)}
+          onInvalid={this.props.onInvalid}
         />
-          <span>{message}</span>
-        </div>
-        )
+        <span style={{color: 'red'}}>{message}</span>
+      </div>
+    )
 
 
-        }
-        }
+  }
+}

@@ -22,22 +22,43 @@ export class CategoryForm extends React.Component {
       })
   }
 
+  validateState() {
+    let isValid = true;
+
+    if(!this.state.name)
+      isValid = false;
+
+    if(!this.state.description)
+      isValid = false
+
+    console.log(isValid);
+      return isValid;
+  }
+
   onSubmit(e) {
     e.preventDefault();
-    let id = this.props.params.id;
-    if(!id) {
-      this.rep.addCategory(this.state, (err) =>{
-        if(!err)
-          alert("Added");
-      })
-    } else {
-      this.rep.updateCategory(id, this.state, err => {
-        if(!err)
-          alert("Upated");
-        else
-          console.log(err);
-      })
+    if(this.validateState()) {
+      let id = this.props.params.id;
+      if(!id) {
+        this.rep.addCategory(this.state, (err) =>{
+          if(!err)
+            alert("Added");
+        })
+      } else {
+        this.rep.updateCategory(id, this.state, err => {
+          if(!err)
+            alert("Upated");
+          else
+            console.log(err);
+        })
+      }
     }
+  }
+
+  onInvalid() {
+    this.setState({
+      canSubmit: false
+    })
   }
 
   onNameChange(e) {
@@ -62,39 +83,24 @@ export class CategoryForm extends React.Component {
           </Jumbotron>
         </Col>
         <form onSubmit={this.onSubmit.bind(this)}>
-          <FormGroup>
             <Input label="Nome"
               onChange={this.onNameChange.bind(this)}
               value={this.state.name}
               validationMessage="this field is required"
               validate={this.validateName.bind(this)}
+              onInvalid={this.onInvalid.bind(this)}
             />
-            <ControlLabel>Nome</ControlLabel>
-	    <FormControl type="text"
-              placeholder="Name"
-              onChange={this.onNameChange.bind(this)}
-              value={this.state.name}
-              required
-            />
-
-          
-          </FormGroup>
-          <FormGroup>
-            <ControlLabel>Descrição</ControlLabel>
-            <FormControl type="text"
-              placeholder="Descrição"
+            <Input label="Description"
               onChange={this.onDescriptionChange.bind(this)}
-              value={this.state.description}
-              required
-              validationError="asifjdk"
-            >
-            </FormControl>
-          </FormGroup>
-
-          <FormGroup>
-            <Button type="submit">Save</Button>
-          </FormGroup>
-        </form>
-      </div>)
+              value={this.state.value}
+              validationMessage="This field is required"
+              validate={this.validateName.bind(this)}
+              onInvalid={this.onInvalid.bind(this)} />
+            
+        <FormGroup>
+          <Button type="submit">Save</Button>
+        </FormGroup>
+      </form>
+    </div>)
   }
 }
