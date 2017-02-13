@@ -1,5 +1,5 @@
 body {
-  font-family: 'Pangolin', cursive;
+  font-family: 'Open Sans Condensed', cursive;
 }
 #menu {
   background-color:#4dd2ff;
@@ -18,5 +18,5 @@ body {
 }
 
 .menu-item a:hover{
-  color:white !important;
+  color:grey !important;
 }

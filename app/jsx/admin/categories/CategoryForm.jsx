@@ -31,8 +31,7 @@ export class CategoryForm extends React.Component {
     if(!this.state.description)
       isValid = false
 
-    console.log(isValid);
-      return isValid;
+     return isValid;
   }
 
   onSubmit(e) {
@@ -52,14 +51,12 @@ export class CategoryForm extends React.Component {
             console.log(err);
         })
       }
+    } else {
+      this.setState({validationMessage: 'Form is invalid, please check all fields and re-submit'});
     }
   }
 
-  onInvalid() {
-    this.setState({
-      canSubmit: false
-    })
-  }
+
 
   onNameChange(e) {
     this.setState({name: e.target.value});
@@ -69,38 +66,50 @@ export class CategoryForm extends React.Component {
     this.setState({description: e.target.value});
   }
 
-  validateName(name) {
-    return name ? true : false;
+  isRequired(value) {
+    return value ? true : false;
   }
 
   render() {
     let headerText = this.state._id ? this.state.name : 'New Category';
+    let validationMessage = this.state.validationMessage
+    ? <span>{this.state.validationMessage}</span>
+    : null;
+
     return (
       <div>
-        <Col xs={12}>
+          <div className="row">
           <Jumbotron>
             <h1 className="text-center">{headerText}</h1>
           </Jumbotron>
-        </Col>
-        <form onSubmit={this.onSubmit.bind(this)}>
-            <Input label="Nome"
-              onChange={this.onNameChange.bind(this)}
-              value={this.state.name}
-              validationMessage="this field is required"
-              validate={this.validateName.bind(this)}
-              onInvalid={this.onInvalid.bind(this)}
-            />
-            <Input label="Description"
-              onChange={this.onDescriptionChange.bind(this)}
-              value={this.state.value}
-              validationMessage="This field is required"
-              validate={this.validateName.bind(this)}
-              onInvalid={this.onInvalid.bind(this)} />
-            
-        <FormGroup>
-          <Button type="submit">Save</Button>
-        </FormGroup>
-      </form>
-    </div>)
+        </div>
+        <div className="row">
+          <div className="center-block">
+            <form onSubmit={this.onSubmit.bind(this)} className="center-block">
+              <Input label="Nome"
+                onChange={this.onNameChange.bind(this)}
+                value={this.state.name}
+                validationMessage="This field is required"
+                validationFunction={this.isRequired.bind(this)}
+
+                />
+              <Input label="Description"
+                onChange={this.onDescriptionChange.bind(this)}
+                value={this.state.description}
+                validationMessage="This field is required"
+                validationFunction={this.isRequired.bind(this)}
+                />
+              <div>
+                {validationMessage}
+              </div>
+              <FormGroup>
+                <div className="center-block">
+                  <Button className="add-button " bsSize="lg" type="submit">Save</Button>
+                </div>
+              </FormGroup>
+            </form>
+          </div>
+        </div>
+      </div>)
   }
 }

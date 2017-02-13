@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {ProductRepository} from '../../repositories/product.js';
 import {CategoryRepository} from '../../repositories/category.js';
+import {Input} from '../components/Input.jsx';
+import {Select} from '../components/Select.jsx';
+import {isRequired} from '../helpers/Validations.js';
 
 export class ProductsForm extends React.Component {
   constructor(props) {
@@ -28,7 +31,7 @@ export class ProductsForm extends React.Component {
     });
   }
   componentDidMount() {
-    this.categoryRepository.getCategories((categories) => {
+    this.categoryRepository.getAllCategories((categories) => {
       this.setState({categories: categories});
     });
     if(this.props.params.id) {
@@ -39,7 +42,6 @@ export class ProductsForm extends React.Component {
 
   onChangeCategory(e) {
     this.setState({category: e.target.value})
-    console.log(e.target.value);
   }
 
   onChangeName(e) {
@@ -91,6 +93,7 @@ export class ProductsForm extends React.Component {
     e.preventDefault();
     let product = this.state;
 
+    this.refs.nameInput.onBlur(this.state.name)
     if(!product._id) {
       this.repository.add(product, (err) => {
         if(!err)
@@ -188,19 +191,26 @@ export class ProductsForm extends React.Component {
 
             {/*Category field */}
             <div className="form-group">
-              <label>Category</label>
-              <select value={this.state.category} className="form-control" 
-                onChange={this.onChangeCategory.bind(this)}>
-                <option value="">--- Select ---</option>
-                {options}
-              </select>
+              <Select
+                label="Category"
+                value={this.state.category}
+                options={options}
+                onChange={this.onChangeCategory.bind(this)}
+                validationFunction={isRequired}
+                validationMessage="This field is required"
+
+                ></Select>
             </div>
 
             {/*Name Field */}
             <div className="form-group">
-              <label>Name</label>
-              <input className="form-control"
-                name="name" value={this.state.name} onChange={this.onChangeName.bind(this)} />
+              <Input label="Name"
+                ref="nameInput"
+                value={this.state.name}
+                onChange={this.onChangeName.bind(this)}
+                validationFunction={isRequired}
+                validationMessage="This field is required"
+                ></Input>
             </div>
 
             {/*Description Field*/}
@@ -220,7 +230,7 @@ export class ProductsForm extends React.Component {
             {/*Active Field*/}
             <div className="fieldset">
               <label>Active</label>
-              <input type="checkbox" className="form-control" name="active" 
+              <input type="checkbox" className="form-control" name="active"
                 onChange={this.onChangeActive.bind(this)}
                 value={this.state.active}
                 checked={this.state.active}
