@@ -40,7 +40,7 @@ export class AppBar extends React.Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              <NavItem className="menu-item" href="/#/produtos">
+              <NavItem className="menu-item" href="">
                 <OverlayTrigger trigger="click" placement="bottom" overlay={categoriesPopover}>
                   <span>Produtos</span></OverlayTrigger>
               </NavItem>

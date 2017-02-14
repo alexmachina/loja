@@ -18,7 +18,7 @@ class ProductController {
       .limit(10)
       .exec()
 
-    let findCount = 
+    let findCount =
       productModel.find(query).count().exec()
 
     Promise.all([findByName, findCount])
@@ -29,6 +29,29 @@ class ProductController {
         });
       })
 
+  }
+
+  getProductByName(req, res) {
+    let query = {name: req.params.name};
+    let find = productModel.findOne(query).exec();
+
+    find.then(product => {
+      res.json(product);
+    });
+
+    find.catch(err => {
+      res.status(500).send(err);
+    });
+  }
+
+  getProductsByCategory(req, res) {
+    let findByCategory = productModel.find({category: req.params.categoryId});
+    findByCategory.then(products => {
+      res.json(products);
+    });
+    findByCategory.catch(err => {
+      res.status(500).send(err);
+    });
   }
 
   getProducts(req, res) {
@@ -78,7 +101,7 @@ class ProductController {
       p.images = req.files.images.map((i) => i.filename);
 
     p.save()
-      .then((newProduct) => { 
+      .then((newProduct) => {
         categoryModel.findById(p.category).exec().then(category => {
           category.products.push(newProduct._id);
           category.save().then(() => {

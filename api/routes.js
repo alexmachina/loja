@@ -35,6 +35,8 @@ router.get('/products/active', productCtrl.getActiveProducts);
 router.get('/products/featured', productCtrl.getFeatureProducts);
 router.get('/productsCount', productCtrl.getProductsCount);
 router.get('/productsByName/:name/:page', productCtrl.getProductsByName);
+router.get('/products/category/:categoryId', productCtrl.getProductsByCategory);
+router.get('/product/byName/:name', productCtrl.getProductByName);
 
 
 let uploadFields = uploadAmbience.fields([

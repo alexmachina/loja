@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 import {CategoryRepository} from '../../repositories/category.js'
 export class ProductsPopover extends React.Component{
   constructor(props) {
@@ -12,15 +13,20 @@ export class ProductsPopover extends React.Component{
       this.setState({categories: categories});
     })
   }
+
   render(){
     let liStyle = {
       listStyle: 'none',
       margin: 0,
       padding: '5px',
-  
+
     }
     let categoriesLi = this.state.categories.map(c => {
-      return (<li style={liStyle} key={c._id}>{c.name}</li>)
+      return (
+        <li style={liStyle} key={c._id}>
+          <Link to={'/categoria/'+c.name} >{c.name}</Link>
+        </li>
+      )
     })
     return (
       <div>

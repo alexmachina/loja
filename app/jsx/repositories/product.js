@@ -13,7 +13,7 @@ export class ProductRepository {
       method:'GET',
       url: this.baseUrl + '/products/' + page,
     }).done(products => cb(null,products))
-      .fail((err, xhr) =>{ 
+      .fail((err, xhr) =>{
         cb(err)
       });
   }
@@ -27,6 +27,41 @@ export class ProductRepository {
         else
           cb(json);
       })
+    })
+  }
+
+  getProductsByCategory(categoryId){
+    return new Promise((resolve, reject) => {
+      fetch(`${this.baseUrl}/products/category/${categoryId}`)
+      .then(response => {
+        if(response.ok) {
+          response.json().then(json => {
+            resolve(json);
+          });
+        } else {
+          response.text().then(text => {
+            reject(text);
+          });
+        }
+      }).catch(err => {
+        reject(err);
+      })
+    })
+  }
+
+  getProductByName(name) {
+    return new Promise((resolve, reject) => {
+      let req = fetch(`${this.baseUrl}/product/byName/${name}`);
+
+      req.then(response => {
+        if(response.ok) {
+          response.json().then(json => resolve(json));
+        } else{
+          response.text().then(text => resolve(text));
+        }
+      })
+
+      req.catch(err => reject(err));
     })
   }
 
@@ -84,7 +119,7 @@ export class ProductRepository {
       processData: false,
       contentType:false
     }).done(() => cb(null))
-      .fail(err => { 
+      .fail(err => {
         console.log(err);
         cb(err)
       });
