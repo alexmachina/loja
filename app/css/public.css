@@ -20,3 +20,7 @@ body {
 .menu-item a:hover{
   color:grey !important;
 }
+
+.fa-facebook-square:hover{
+  color:blue;
+}

@@ -1,28 +1,30 @@
 import React from 'react';
-import {AmbienceRepository} from '../../repositories/ambience.js';
 import {Col, Image} from 'react-bootstrap';
+import {AmbienceRepository} from '../../repositories/ambience.js';
 
-export class AmbiencesStrip extends React.Component {
-  constructor(props) {
+export class AmbiencesPage extends React.Component{
+  constructor(props){
     super(props);
-    this.rep = new AmbienceRepository('http://localhost',3000);
-    this.state = {ambiences: []};
+    this.rep = new AmbienceRepository('http://localhost', 3000);
+    this.state = {ambiences: []}
   }
 
   componentDidMount() {
-    this.rep.getActiveAmbiences((err, ambiences) => {
-      if(!err)
+    this.rep.getAmbiences(1, (err, ambiences) => {
+      if(!err) {
         this.setState({ambiences: ambiences});
-      else
+      } else {
         console.log(err);
-    });
+      }
+    })
   }
+
+
   render() {
-    let ambiences = null;
-    let colStyle = {backgroundColor:'#fff3'};
-    ambiences = this.state.ambiences.map(a => {
+      let ambiences = this.state.ambiences.map(a => {
+
       return (
-        <Col xs={12} sm={6} md={4} style={colStyle} key={a._id}>
+        <Col xs={12} sm={6} md={4} key={a._id}>
                 <Image className="ambience-strip-image img-responsive" rounded src={'/img/ambiences/'+a.mainImage} />
                 <h3>{a.name}</h3>
         </Col>
@@ -37,5 +39,6 @@ export class AmbiencesStrip extends React.Component {
           </div>
       </div>
     )
+
   }
 }

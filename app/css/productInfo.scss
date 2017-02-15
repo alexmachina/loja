@@ -1,0 +1,26 @@
+$facebook-blue:#3B5998;
+$google-plus-red:#d34836;
+$twitter-blue:#00aced;
+.fa-facebook-square {
+  color:$facebook-blue;
+}
+
+.fa-google-plus-square {
+  color:$google-plus-red;
+}
+
+.fa-twitter-square {
+  color:$twitter-blue;
+}
+
+.fa-facebook-square:hover {
+  color:grey;
+}
+
+.fa-google-plus-square:hover {
+  color:grey;
+}
+
+.fa-twitter-square:hover {
+  color:grey;
+}

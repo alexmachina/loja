@@ -15,6 +15,7 @@ import {Public} from './public/Public.jsx';
 import {Home} from './public/home/Home.jsx';
 import {CategoryPage} from './public/category/CategoryPage.jsx';
 import {ProductPage} from './public/product/ProductPage.jsx';
+import {AmbiencesPage} from './public/ambience/AmbiencesPage.jsx';
 import Cookies from 'js-cookie';
 
 
@@ -24,6 +25,7 @@ let rt = (
       <Route path="/home" component={Home} ></Route>
       <Route path="/categoria/:name" component={CategoryPage}></Route>
       <Route path="/produto/:name" component={ProductPage}></Route>
+      <Route path="/ambientes" component={AmbiencesPage}></Route>
     </Route>
     <Route path="/admin" component={Admin} >
       <Route path="/products" component={ProductsTable}></Route>

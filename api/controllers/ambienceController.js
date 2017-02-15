@@ -16,7 +16,7 @@ class ambienceController {
     let query = {name: new RegExp(req.params.name, 'i')},
       skip = (req.params.page -1) * 10;
 
-    let findByName = 
+    let findByName =
       ambienceModel.find(query)
       .limit(10)
       .skip(skip)
@@ -34,6 +34,19 @@ class ambienceController {
       });
     });
 
+  }
+
+  getAmbienceByName(req, res) {
+    let query = {name: req.params.name};
+
+    let find = ambienceModel.findOne(query);
+    find.then(ambience => {
+      res.json(ambience);
+    });
+
+    find.catch(err => {
+      res.status(500).send(err);
+    })
   }
 
   getAmbiencesCount(req, res) {

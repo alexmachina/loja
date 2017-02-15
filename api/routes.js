@@ -50,6 +50,7 @@ router.post('/ambience', auth,uploadFields, ambienceCtrl.addAmbience);
 router.put('/ambience/:id', auth,uploadFields, ambienceCtrl.updateAmbience);
 router.get('/ambiencesCount', ambienceCtrl.getAmbiencesCount);
 router.get('/ambiencesByName/:name/:page', ambienceCtrl.getAmbiencesByName);
+router.get('/ambience/ByName/:name', ambienceCtrl.getAmbienceByName);
 
 router.get('/sales/:page', saleCtrl.getSales);
 router.get('/sale/:id', saleCtrl.getSale);

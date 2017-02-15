@@ -4,6 +4,7 @@ import {ProductRepository} from '../../repositories/product.js';
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 import {Col} from 'react-bootstrap';
+import {ProductInfo} from './ProductInfo.jsx';
 
 
 
@@ -11,7 +12,10 @@ export class ProductPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: {},
+      product: {
+        images: [],
+        mainImage: ''
+      },
       error: ''
     }
 
@@ -27,20 +31,22 @@ export class ProductPage extends React.Component {
 
   }
   render() {
-    const images = [
-      {
-        original: 'http://lorempixel.com/1000/600/nature/1/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/1/',
-      },
-      {
-        original: 'http://lorempixel.com/1000/600/nature/2/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/2/'
-      },
-      {
-        original: 'http://lorempixel.com/1000/600/nature/3/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/3/'
-      }
-    ]
+
+    //Populate the array that will be passed to
+    //the image's carrousel.
+    let images = [];
+    images.push({
+      original: `/img/products/${this.state.product.mainImage}`,
+      thumbnail: `/img/products/${this.state.product.mainImage}`
+    });
+
+    this.state.product.images.forEach((i) => {
+      images.push({
+        original: `/img/products/${i}`,
+        thumbnail:`/img/products/${i}`
+      });
+    })
+
 
     let errorP = <p>this.state.error</p>
     return (
@@ -48,12 +54,21 @@ export class ProductPage extends React.Component {
         <Header title={this.state.product.name}
           />
         <Col sm={12} md={6}>
-        <ImageGallery
-          items={images}
-          slideInterval={2000}
-          />
-              </Col>
-        </div>
+          <ImageGallery
+            items={images}
+            slideInterval={2000}
+            />
+        </Col>
+        <Col sm={12} md={6}>
+          <ProductInfo
+            price={this.state.product.price}
+            name={this.state.product.name}
+            description={this.state.product.description}
+            
+            />
+
+        </Col>
+      </div>
 
     )
   }

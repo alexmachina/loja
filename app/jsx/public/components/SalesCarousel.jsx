@@ -26,8 +26,10 @@ export class SalesCarousel extends React.Component {
              <img src={'/img/sales/'+s.mainImage} className="img img-responsive"
                style={{width : '100%'}} />
              <Carousel.Caption>
-               <h1 style={{backgroundColor:'grey'}}>{s.name}</h1>
-               <h3 style={{backgroundColor:'orange'}}>{s.description}</h3>
+               <h1 style={{backgroundColor:'grey'}} className="hidden-xs">{s.name}</h1>
+               <h3 style={{backgroundColor:'orange'}} className="hidden-xs">{s.description}</h3>
+               <h4 className="hidden visible-xs">{s.name}</h4>
+               <span className="hidden visible-xs">{s.description}</span>
              </Carousel.Caption>
            </Carousel.Item>
 

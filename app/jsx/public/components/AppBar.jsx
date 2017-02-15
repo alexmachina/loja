@@ -6,11 +6,15 @@ import {ProductsPopover} from './ProductsPopover.jsx';
 export class AppBar extends React.Component {
   constructor(props){
     super(props);
+    this.state = { showSelect: false }
   }
 
   componentDidMount() {
   }
+  toggleSelect() {
+    this.setState({showSelect: !this.state.showSelect})
 
+  }
   render() {
     let navbarStyle = {
       backgroundColor: 'white'
@@ -29,6 +33,14 @@ export class AppBar extends React.Component {
     let brandStyle={
       marginLeft: 0
     }
+
+    let select = null;
+
+    if(this.state.showSelect) {
+      select = <ProductsPopover />
+
+
+    }
     return (
       <div className="container-fluid">
         <Navbar id="menu" style={navbarStyle}>
@@ -40,9 +52,13 @@ export class AppBar extends React.Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              <NavItem className="menu-item" href="">
+              <NavItem className="menu-item hidden-xs" href="">
                 <OverlayTrigger trigger="click" placement="bottom" overlay={categoriesPopover}>
                   <span>Produtos</span></OverlayTrigger>
+              </NavItem>
+              <NavItem className="menu-item hidden visible-xs">
+                <span onClick={this.toggleSelect.bind(this)}>Produtos</span>
+                {select}
               </NavItem>
               <NavItem className="menu-item"href="/#/ambientes">Ambientes</NavItem>
               <NavItem className="menu-item"href="/#/promocoes">Promoções</NavItem>

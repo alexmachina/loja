@@ -11,11 +11,21 @@ export class AmbienceRepository {
       headers: this.headers
     });
     fetch(request).then(response => {
-      response.json().then(json => {
-        cb(null, json);
-      }).catch(err => cb(err));
+
+      if(response.ok) {
+        response.json().then(json => {
+          cb(null, json);
+        }).catch(err => cb(err));
+      } else {
+        response.text().then(text => {
+          cb(text);
+        })
+      }
     }).catch(err => cb(err));
   }
+
+
+
   getAmbiencesByName(name, page, cb) {
     fetch(`${this.baseUrl}/ambiencesByName/${name}/${page}`)
       .then(response => {
@@ -34,6 +44,17 @@ export class AmbienceRepository {
           cb(null, json);
         }).catch(err => cb(err));
       }).catch(err => cb(err));
+  }
+
+  getAmbienceByName(name, cb) {
+    fetch(this.baseUrl+'/ambience/byName/'+name)
+    .then(response => {
+      if (response.ok) {
+        response.json().then(json => cb(null, json));
+      } else {
+        response.text().then(text => cb(text));
+      }
+    });
   }
 
   getActiveAmbiences(cb) {
