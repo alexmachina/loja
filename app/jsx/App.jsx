@@ -15,7 +15,9 @@ import {Public} from './public/Public.jsx';
 import {Home} from './public/home/Home.jsx';
 import {CategoryPage} from './public/category/CategoryPage.jsx';
 import {ProductPage} from './public/product/ProductPage.jsx';
-import {AmbiencesPage} from './public/ambience/AmbiencesPage.jsx';
+import {AmbiencesPage} from './public/ambience/AmbiencesPage.jsx'
+import {AmbiencePage} from './public/ambience/AmbiencePage.jsx';
+import {BidPage} from './public/bid/BidPage.jsx';
 import Cookies from 'js-cookie';
 
 
@@ -26,6 +28,8 @@ let rt = (
       <Route path="/categoria/:name" component={CategoryPage}></Route>
       <Route path="/produto/:name" component={ProductPage}></Route>
       <Route path="/ambientes" component={AmbiencesPage}></Route>
+      <Route path="/ambiente/:name" component={AmbiencePage}></Route>
+      <Route path="/orcamento" component={BidPage}></Route>
     </Route>
     <Route path="/admin" component={Admin} >
       <Route path="/products" component={ProductsTable}></Route>

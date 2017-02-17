@@ -24,3 +24,17 @@ $twitter-blue:#00aced;
 .fa-twitter-square:hover {
   color:grey;
 }
+
+#quantity-col {
+  input  {
+    width:35px;
+    font-size:22px;
+    text-align:center;
+  }
+  margin-top:15px;
+  padding-left:0;
+}
+
+#submit-product-col {
+  padding-left:0;
+}

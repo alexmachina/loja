@@ -1,0 +1,39 @@
+
+.items-table {
+  font-size: 22px;
+}
+
+.item-line td {
+  font-size:18px;
+}
+
+#total {
+  font-size:22px;
+}
+
+#bid-form {
+
+margin-bottom:40px;
+  input {
+    font-size:22px;
+  }
+  font-size:22px;
+}
+
+#bid-form-padding{
+  background-color:#eee;
+  padding-top:20px;
+  padding-bottom:20px;
+}
+#bid-submit-button {
+  width:100%;
+  font-size:26px;
+  height:auto;
+  background-color:darkorange;
+  color:white;
+
+}
+
+#bid-submit-button:hover {
+  background-color:orange;
+}

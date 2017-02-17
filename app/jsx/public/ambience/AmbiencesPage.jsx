@@ -1,5 +1,6 @@
 import React from 'react';
 import {Col, Image} from 'react-bootstrap';
+import {Link} from 'react-router';
 import {AmbienceRepository} from '../../repositories/ambience.js';
 
 export class AmbiencesPage extends React.Component{
@@ -25,14 +26,16 @@ export class AmbiencesPage extends React.Component{
 
       return (
         <Col xs={12} sm={6} md={4} key={a._id}>
+              <Link to={'/ambiente/' + a.name}>
                 <Image className="ambience-strip-image img-responsive" rounded src={'/img/ambiences/'+a.mainImage} />
                 <h3>{a.name}</h3>
+              </Link>
         </Col>
       )
     });
 
     return (
-      <div>
+      <div className="container">
         <h1 className="text-center">Ambientes</h1>
           <div className="row">
             {ambiences}

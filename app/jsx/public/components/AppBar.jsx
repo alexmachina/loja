@@ -1,7 +1,8 @@
 import React from 'react';
-import {Navbar, Nav, NavItem, Glyphicon, OverlayTrigger, Popover} from 'react-bootstrap';
+import {Navbar, Nav, NavItem, Glyphicon, OverlayTrigger, Popover, NavDropdown} from 'react-bootstrap';
 import {Link} from 'react-router';
 import {ProductsPopover} from './ProductsPopover.jsx';
+import './styles/AppBar.scss';
 
 export class AppBar extends React.Component {
   constructor(props){
@@ -36,11 +37,11 @@ export class AppBar extends React.Component {
 
     let select = null;
 
-    if(this.state.showSelect) {
+
       select = <ProductsPopover />
 
 
-    }
+
     return (
       <div className="container-fluid">
         <Navbar id="menu" style={navbarStyle}>
@@ -52,21 +53,21 @@ export class AppBar extends React.Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              <NavItem className="menu-item hidden-xs" href="">
-                <OverlayTrigger trigger="click" placement="bottom" overlay={categoriesPopover}>
-                  <span>Produtos</span></OverlayTrigger>
-              </NavItem>
-              <NavItem className="menu-item hidden visible-xs">
-                <span onClick={this.toggleSelect.bind(this)}>Produtos</span>
+
+              <NavDropdown title="Produtos" className="menu-item" id="theId">
                 {select}
-              </NavItem>
+              </NavDropdown>
               <NavItem className="menu-item"href="/#/ambientes">Ambientes</NavItem>
-              <NavItem className="menu-item"href="/#/promocoes">Promoções</NavItem>
+              <NavItem className="menu-item"href="/#/localizacao">Localizacao</NavItem>
+              <NavItem className="menu-item" href="/#/registrar">Registrar-se</NavItem>
             </Nav>
             <Nav pullRight>
-              <NavItem className="menu-item">
+              <NavItem className="menu-item" href="/#/orcamento">
                 Meus produtos
                 <Glyphicon glyph="shopping-cart"></Glyphicon>
+              </NavItem>
+              <NavItem className="menu-item">
+                Login
               </NavItem>
             </Nav>
           </Navbar.Collapse>

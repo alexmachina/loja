@@ -64,7 +64,8 @@ export class ProductPage extends React.Component {
             price={this.state.product.price}
             name={this.state.product.name}
             description={this.state.product.description}
-            
+            cartTooltip={this.props.cartTooltip}
+
             />
 
         </Col>

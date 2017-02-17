@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import {CategoryRepository} from '../../repositories/category.js'
 export class ProductsPopover extends React.Component{
+
   constructor(props) {
     super(props)
     this.rep = new CategoryRepository('localhost', 3000);
@@ -23,7 +24,7 @@ export class ProductsPopover extends React.Component{
     }
     let categoriesLi = this.state.categories.map(c => {
       return (
-        <li style={liStyle} key={c._id}>
+        <li style={liStyle} key={c._id} className="menu-sub-item">
           <Link to={'/categoria/'+c.name} >{c.name}</Link>
         </li>
       )
