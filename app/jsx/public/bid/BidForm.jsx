@@ -2,11 +2,13 @@ import React from 'react';
 import {Input} from '../../components/Input.jsx';
 import {Col, Button, Glyiphicon} from 'react-bootstrap';
 import {validateTelephone, isNumber, validateEmail} from './validations.js';
+import { BidRepository } from '../../repositories/bid.js';
+import  CartRepository  from './CartRepository.js';
 
 export class BidForm extends React.Component {
   constructor(props){
     super(props);
-
+    this.rep = new BidRepository('http://localhost', 3000)
     this.state = {
       name: '',
       lastName: '',
@@ -15,7 +17,9 @@ export class BidForm extends React.Component {
       email: '',
       state: '',
       city: '',
-      message: ''
+      message: '',
+      sent: false,
+      buttonText: 'Enviar'
     }
 }
     isNotEmpty(value) {
@@ -98,8 +102,21 @@ export class BidForm extends React.Component {
       this.refs.telephoneInput.onBlur(this.state.telephone)
       this.refs.emailInput.onBlur(this.state.email);
 
-      if(this.isStateValid()) {
-        alert("Submiting");
+      if(this.isStateValid() && CartRepository.getItems().length) {
+        let bid = this.state;
+        bid.products = CartRepository.getItems()
+        this.setState({buttonText: 'Enviando...'})
+
+        this.rep.sendBid(bid).then(() =>{
+          console.log("Sent")
+          this.setState({
+            sent : true,
+            buttonText : 'Enviado'
+          })
+        })
+          .catch(err => console.log(err))
+
+        
       }
 
 
@@ -152,8 +169,9 @@ export class BidForm extends React.Component {
                   id="bid-submit-button"
                   className="form-control"
                   onClick={this.handleSubmit.bind(this)}
+                  disabled={this.state.sent}
                   >
-                    Enviar
+                    {this.state.buttonText}
                 </Button>
               </Col>
             </Col>

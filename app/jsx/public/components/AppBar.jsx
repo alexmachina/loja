@@ -66,8 +66,9 @@ export class AppBar extends React.Component {
                 Meus produtos
                 <Glyphicon glyph="shopping-cart"></Glyphicon>
               </NavItem>
-              <NavItem className="menu-item">
-                Login
+              <NavItem className="menu-item" href="/#/contato">
+                Contato
+                
               </NavItem>
             </Nav>
           </Navbar.Collapse>

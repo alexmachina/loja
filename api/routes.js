@@ -4,6 +4,7 @@ const express = require('express'),
       ambienceCtrl = require('./controllers/ambienceController'),
       saleCtrl = require('./controllers/saleController'),
       categoryCtrl = require('./controllers/categoryController'),
+      bidController = require('./controllers/bidController'),
       multer = require('multer'),
       jwt = require('jsonwebtoken'),
       uploadProduct = multer({'dest' : 'app/img/products'}),
@@ -68,6 +69,7 @@ router.get('/categoriesCount', categoryCtrl.getCategoriesCount);
 router.get('/categoriesByName/:name/:page', categoryCtrl.getCategoriesByName);
 router.get('/categoryByName/:name', categoryCtrl.getCategoryByName);
 
+router.post('/sendBid', bidController.sendBid);
 
 router.post('/user', userCtrl.addUser);
 router.get('/users', userCtrl.getUsers);
