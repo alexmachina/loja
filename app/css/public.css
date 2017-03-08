@@ -20,3 +20,9 @@ body {
 .fa-facebook-square:hover{
   color:blue;
 }
+
+#mapiFrame {
+  width:100%;
+  height:100%;
+  margin-bottom:50px;
+}

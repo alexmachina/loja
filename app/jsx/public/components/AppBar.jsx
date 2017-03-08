@@ -59,7 +59,6 @@ export class AppBar extends React.Component {
               </NavDropdown>
               <NavItem className="menu-item"href="/#/ambientes">Ambientes</NavItem>
               <NavItem className="menu-item"href="/#/localizacao">Localizacao</NavItem>
-              <NavItem className="menu-item" href="/#/registrar">Registrar-se</NavItem>
             </Nav>
             <Nav pullRight>
               <NavItem className="menu-item" href="/#/orcamento">
@@ -68,7 +67,7 @@ export class AppBar extends React.Component {
               </NavItem>
               <NavItem className="menu-item" href="/#/contato">
                 Contato
-                
+
               </NavItem>
             </Nav>
           </Navbar.Collapse>

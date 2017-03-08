@@ -5,6 +5,7 @@ const express = require('express'),
       saleCtrl = require('./controllers/saleController'),
       categoryCtrl = require('./controllers/categoryController'),
       bidController = require('./controllers/bidController'),
+      contactController = require('./controllers/contactController'),
       multer = require('multer'),
       jwt = require('jsonwebtoken'),
       uploadProduct = multer({'dest' : 'app/img/products'}),
@@ -70,6 +71,8 @@ router.get('/categoriesByName/:name/:page', categoryCtrl.getCategoriesByName);
 router.get('/categoryByName/:name', categoryCtrl.getCategoryByName);
 
 router.post('/sendBid', bidController.sendBid);
+
+router.post('/sendContactMessage', contactController.sendContactMessage)
 
 router.post('/user', userCtrl.addUser);
 router.get('/users', userCtrl.getUsers);

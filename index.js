@@ -5,6 +5,7 @@ const express = require('express'),
       userCtrl = require('./api/controllers/userController');
 
 let app = express();
+app.set('port', (process.env.PORT || 3000))
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use('/',express.static('app'));
@@ -22,9 +23,9 @@ app.use(function (req, res, next) {
 app.post('/login', userCtrl.login);
 app.use(router);
 
-app.listen(3000, err => {
-  err ? console.log(err) :console.log("Running: 3000");
+app.listen(app.get('port'), err => {
+  err ? console.log(err) :console.log("Running: " + app.get('port'));
 
   mongoose.connect('mongodb://localhost/loja');
-}
-);
+})
+

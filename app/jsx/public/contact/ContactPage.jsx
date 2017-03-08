@@ -3,6 +3,7 @@ import {Row, Col, FormGroup,
   FormControl, ControlLabel, 
   Button} from 'react-bootstrap'
 import './styles/styles.scss'
+import {ContactRepository} from  '../../repositories/contact.js'
 
 export class ContactPage extends React.Component{
   constructor(props) {
@@ -13,8 +14,14 @@ export class ContactPage extends React.Component{
       subject: '',
       message: '',
       buttonText: 'Enviar',
+      buttonDisabled: false,
+      formSubmited: false,
       sent: false
     }
+
+    this.rep = new ContactRepository()
+
+
   }
   getNameValidationState() {
     if (this.state.name) {
@@ -67,6 +74,20 @@ export class ContactPage extends React.Component{
 
   onSubmit(e){
     e.preventDefault()
+    if(!this.state.formSubmited) {
+      this.setState({buttonText: 'Enviando...',
+        buttonDisabled: true})
+
+      this.rep.sendContactMessage(this.state).then(() => {
+        this.setState({ 
+          formSubmited: true,
+          buttonText: 'Mensagem Enviada',
+          buttonDisabled: false
+
+        })
+
+      }).catch(err => console.log(err))
+    }
   }
   render() {
     return (
@@ -124,7 +145,11 @@ export class ContactPage extends React.Component{
                 />
               </FormGroup>
               <Col xs={12} className="text-center">
-                <Button bsSize="lg">
+                <Button bsSize="lg"
+                  type="submit"
+                  id="bid-submit-button"
+                  disabled={this.state.buttonDisabled}
+                >
                   {this.state.buttonText}
                 </Button>
               </Col>

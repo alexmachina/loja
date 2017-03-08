@@ -19,6 +19,7 @@ import {AmbiencesPage} from './public/ambience/AmbiencesPage.jsx'
 import {AmbiencePage} from './public/ambience/AmbiencePage.jsx';
 import {BidPage} from './public/bid/BidPage.jsx';
 import {ContactPage} from './public/contact/ContactPage.jsx';
+import {LocationPage} from './public/location/LocationPage.jsx'
 import Cookies from 'js-cookie';
 
 
@@ -32,6 +33,7 @@ let rt = (
       <Route path="/ambiente/:name" component={AmbiencePage}></Route>
       <Route path="/orcamento" component={BidPage}></Route>
       <Route path="/contato" component={ContactPage}></Route>
+      <Route path="/localizacao" component={LocationPage}></Route>
     </Route>
     <Route path="/admin" component={Admin} >
       <Route path="/products" component={ProductsTable}></Route>
@@ -49,6 +51,8 @@ let rt = (
       <Route path="/categories" component={CategoryTable}></Route>
       <Route path="/category" component={CategoryForm}></Route>
       <Route path="/category/:id" component={CategoryForm}></Route>
+
+      
     </Route>
   </Router>
 )
