@@ -1,8 +1,9 @@
 import Cookies from 'js-cookie';
+import {config} from '../config.js'
 
 export class ProductRepository {
   constructor(baseUrl, port) {
-    this.baseUrl = 'http://' + baseUrl + ':' + port;
+    this.baseUrl = config.url
 
     $.ajaxSetup({
       headers: {'authorization': Cookies.get('authorization')}

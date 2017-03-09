@@ -1,7 +1,9 @@
 import Cookies from 'js-cookie';
+import {config} from '../config.js'
+
 export class AmbienceRepository {
   constructor(baseUrl, port){
-    this.baseUrl = baseUrl + ':' + port;
+    this.baseUrl = config.url
     this.headers = new Headers({
         authorization: Cookies.get('authorization')
     });

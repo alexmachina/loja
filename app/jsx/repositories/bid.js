@@ -1,7 +1,8 @@
+import {config} from '../config.js'
+
 export class BidRepository {
   constructor(url, port) {
-    this.baseUrl = url + ':' + port;
-     
+    this.baseUrl = config.url
   }
   sendBid(bid) {
     return new Promise((resolve, reject) => {
@@ -15,7 +16,7 @@ export class BidRepository {
         console.log("WO");
         resolve()
       })
-    
+
     })
   }
 }

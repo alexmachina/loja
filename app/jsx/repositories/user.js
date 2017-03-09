@@ -1,6 +1,8 @@
+import {config} from '../config.js'
+
 export class UserRepository {
   constructor(baseUrl, port) {
-    this.baseUrl = 'http://' + baseUrl + ':' + port;
+    this.baseUrl = config.url
   }
 
   login(user, cb) {
@@ -10,6 +12,6 @@ export class UserRepository {
       url: this.baseUrl + '/login'
 
     }).done(token => cb(null, token))
-    .fail(err => cb(err))
+      .fail(err => cb(err))
   }
 }

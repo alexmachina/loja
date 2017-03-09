@@ -1,8 +1,9 @@
 import Cookies from 'js-cookie';
+import {config} from '../config.js'
 
 export class SaleRepository {
   constructor(url, port) {
-    this.baseUrl = url + ':' + port;
+    this.baseUrl = config.url
     this.headers = new Headers({
       'authorization' : Cookies.get('authorization')
     });
