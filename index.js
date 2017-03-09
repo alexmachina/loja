@@ -6,6 +6,7 @@ const express = require('express'),
 
 let app = express();
 app.set('port', (process.env.PORT || 3000))
+app.set('mongodbURI', (process.env.MONGODB_URI || 'mongodb://localhost/loja'))
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use('/',express.static('app'));
@@ -26,6 +27,6 @@ app.use(router);
 app.listen(app.get('port'), err => {
   err ? console.log(err) :console.log("Running: " + app.get('port'));
 
-  mongoose.connect('mongodb://localhost/loja');
+  mongoose.connect(app.get('mongodbURI'))
 })
 
