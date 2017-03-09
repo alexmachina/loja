@@ -1,4 +1,10 @@
-let url = process.env.PORT ? 'https://serene-brushlands-57199.herokuapp.com' : 'http://localhost:3000'
+let env = 'production'
+let url = 'http://localhost:3000'
+
+if(env == 'production') {
+  url = 'https://serene-brushlands-57199.herokuapp.com'
+}
+
 let config = {
   url: url
 }
