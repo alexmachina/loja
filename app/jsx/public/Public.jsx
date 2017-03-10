@@ -10,7 +10,6 @@ export class Public extends React.Component {
     return (
       <div>
         <AppBar />
-
         {ren}
         <Footer />
       </div>

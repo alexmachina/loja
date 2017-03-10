@@ -1,14 +1,13 @@
 import React from 'react';
 import {Input} from '../../components/Input.jsx';
-import {Col, Button, Glyiphicon} from 'react-bootstrap';
+import {Col, Button, Glyiphicon, ControlLabel} from 'react-bootstrap';
 import {validateTelephone, isNumber, validateEmail} from './validations.js';
 import { BidRepository } from '../../repositories/bid.js';
 import  CartRepository  from './CartRepository.js';
 
 export class BidForm extends React.Component {
   constructor(props){
-    super(props);
-    this.rep = new BidRepository('http://localhost', 3000)
+    super(props); this.rep = new BidRepository('http://localhost', 3000)
     this.state = {
       name: '',
       lastName: '',
@@ -165,18 +164,23 @@ export class BidForm extends React.Component {
                   validationMessage="Email invalido"
                   ref="emailInput"
                   />
-                <Button bsSize="lg"
-                  id="bid-submit-button"
-                  className="form-control"
-                  onClick={this.handleSubmit.bind(this)}
-                  disabled={this.state.sent}
+                  <ControlLabel>Mensagem(opcional)</ControlLabel>
+                  <textarea 
+                    className="form-control"
+                    onChange={this.onMessageChange.bind(this)}
+                  />
+                  <Button bsSize="lg"
+                    id="bid-submit-button"
+                    className="form-control"
+                    onClick={this.handleSubmit.bind(this)}
+                    disabled={this.state.sent}
                   >
                     {this.state.buttonText}
-                </Button>
+                  </Button>
+                </Col>
               </Col>
-            </Col>
+            </div>
           </div>
-        </div>
-    )
+      )
     }
-  }
+}

@@ -5,11 +5,11 @@ export class Products extends React.Component {
   render(){
     let products = this.props.products.map(p => {
       return (
-        <Col xs={12} sm={6} md={4} key={p._id}>
+        <Col xs={12} sm={6} md={4} key={p._id} className="text-center">
           <Link to={'/produto/'+p.name}>
             <Image className="img-responsive" rounded src={'/img/products/'+p.mainImage} />
           </Link>
-          <h4>{p.name}</h4>
+          <h3>{p.name}</h3>
         </Col>
       )
     })

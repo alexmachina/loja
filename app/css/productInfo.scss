@@ -37,4 +37,12 @@ $twitter-blue:#00aced;
 
 #submit-product-col {
   padding-left:0;
+  margin-top:15px;
+  margin-bottom:25px
+}
+
+#submit-product-button {
+  background-color: $twitter-blue;
+  color:yellow;
+  font-weight:bolder;
 }

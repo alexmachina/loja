@@ -75,13 +75,17 @@ export class ProductRepository {
       })
   }
 
-  allFeatured(cb) {
-    fetch(this.baseUrl + '/products/featured')
-      .then(response => {
-        response.json().then(json => {
-          cb(json);
+  getFeaturedProducts() {
+    return new Promise((resolve, reject) => {
+      fetch(this.baseUrl + '/products/featured')
+        .then(response => {
+          if(response.ok) {
+            response.json().then(json => resolve(json))
+          } else {
+            response.text().then(text => reject(text))
+          }
         })
-      })
+    })
   }
 
   allActive(cb) {

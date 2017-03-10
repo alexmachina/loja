@@ -62,29 +62,31 @@ export class ProductInfo extends React.Component {
         <h3>Disponivel: Em Estoque</h3>
         {priceSection}
         <h3>{this.props.description}</h3>
+               <Col sm={12} id="quantity-col">
+          <label>Quantidade </label>
+          <input type="text" onChange={this.handleQuantityChange.bind(this)}
+            value={this.state.quantity} />
+        </Col>
         <Col sm={12} id="submit-product-col">
           <OverlayTrigger trigger="click" placement="bottom" overlay={overlayPopover}>
-            <Button bsSize="lg" onClick={this.handleAddClick.bind(this)} >
+              <Button id="submit-product-button" bsSize="lg" onClick={this.handleAddClick.bind(this)} >
               Adicionar ao Orcamento
             </Button>
           </OverlayTrigger>
 
         </Col>
-        <Col sm={12} id="quantity-col">
-          <label>Quantidade </label>
-          <input type="text" onChange={this.handleQuantityChange.bind(this)}
-            value={this.state.quantity} />
-        </Col>
-        <div style={{marginTop:'40px'}}>
 
+        <div style={{marginTop:'40px'}}>
+        {/*
           <i
             className="fa fa-facebook-square"
             style={socialStyle}
-            ></i>
+          ></i>
+          */ }
 
-        </div>
       </div>
+    </div>
 
     )
   }
-}
+  }

@@ -22,6 +22,7 @@ function bidController() {
         <li>Celular: ${bid.phone}</li>
         <li>Telefone: ${bid.telephone}</li>
         <li>Email: ${bid.email}</li>
+        <li>Mensagem: ${bid.message}</li>
       </ul>
     </div>
     <table>

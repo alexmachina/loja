@@ -28,5 +28,6 @@ app.listen(app.get('port'), err => {
   err ? console.log(err) :console.log("Running: " + app.get('port'));
 
   mongoose.connect(app.get('mongodbURI'))
+  console.log(app.get('mongodbURI'))
 })
 
