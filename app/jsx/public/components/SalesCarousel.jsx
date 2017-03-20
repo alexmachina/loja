@@ -1,5 +1,5 @@
 import React from 'react';
-import {Col, Carousel} from 'react-bootstrap';
+import {Col, Carousel, Image} from 'react-bootstrap';
 import {SaleRepository} from '../../repositories/sale.js';
 
 
@@ -23,8 +23,9 @@ export class SalesCarousel extends React.Component {
          return (
 
            <Carousel.Item key={s._id}>
-             <img src={'/img/sales/'+s.mainImage} className="img img-responsive"
-               style={{width : '100%'}} />
+             <Image src={'/img/sales/'+s.mainImage} responsive
+               style={{height:'750px', width:'100%'}}
+             />
              <Carousel.Caption>
                <h1 style={{backgroundColor:'grey'}} className="hidden-xs">{s.name}</h1>
                <h3 style={{backgroundColor:'orange'}} className="hidden-xs">{s.description}</h3>
@@ -38,16 +39,16 @@ export class SalesCarousel extends React.Component {
        });
     }
 
-    let wrapperStyle = {
-      display:'flex',
-      alignItems:'center',
-      justifyContent:'center'
-    }
+   
     return (
       <div className="container-fluid">
         <div className="row">
-        <Col xs={12} style={wrapperStyle}>
-          <Carousel className="col-sm-6" style={{padding:0}}>
+        <Col xs={12} >
+          <Carousel className="" style={{padding:0}}>
+            <Carousel.Item key="1">
+              <Image src={'/img/teste.png'} responsive />
+            </Carousel.Item>
+            
             {items}
           </Carousel>
         </Col>

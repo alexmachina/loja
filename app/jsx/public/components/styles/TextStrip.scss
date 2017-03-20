@@ -1,0 +1,43 @@
+
+
+
+
+
+$orange : #e7b453;
+@media only screen and (min-width:992px) {
+ .strip-container {
+    h1 {
+      font-size:100px;
+      color:$orange;
+
+    }
+    padding:200px;
+    margin-top:50px;
+    background-color:rgba(141,141,141,1);
+  }
+
+
+}
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+  .strip-container {
+    h1 {
+      font-size:52px;
+      color:$orange;
+    }
+  }
+
+}
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+}
+
+/* Custom, iPhone Retina */ 
+@media only screen and (max-width : 320px) {
+
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Input} from '../../components/Input.jsx';
-import {Col, Button, Glyiphicon, ControlLabel} from 'react-bootstrap';
+import {FormGroup, Col, Button, Glyiphicon, ControlLabel} from 'react-bootstrap';
 import {validateTelephone, isNumber, validateEmail} from './validations.js';
 import { BidRepository } from '../../repositories/bid.js';
 import  CartRepository  from './CartRepository.js';
@@ -115,72 +115,75 @@ export class BidForm extends React.Component {
         })
           .catch(err => console.log(err))
 
-        
+
       }
 
 
 
     }
 
-    render() {
-      return (
-        <div id="bid-form">
-          <div className="row">
-            <Col xs={12} id="bid-form-padding">
-              <Col xs={12} sm={8} smOffset={2} >
-                <Input label="Nome"
-                  onChange={this.onNameChange.bind(this)}
-                  value={this.state.name}
-                  validationFunction={this.isNotEmpty.bind(this)}
-                  validationMessage="Campo obrigatorio"
-                  ref="nameInput"
-                  />
-                <Input label="Sobrenome"
-                  onChange={this.onLastNameChange.bind(this)}
-                  value={this.state.lastName}
-                  validationFunction={this.isNotEmpty.bind(this)}
-                  validationMessage="Campo obrigatorio"
-                  ref="lastNameInput"
-                  />
-                <Input label="Celular"
-                  onChange={this.onPhoneChange.bind(this)}
-                  value={this.state.phone}
-                  validationFunction={validateTelephone}
-                  validationMessage="Numero invalido"
-                  ref="phoneInput"
-                  />
-                <Input label="Telefone"
-                  onChange={this.onTelephoneChange.bind(this)}
-                  value={this.state.telephone}
-                  validationFunction={validateTelephone}
-                  validationMessage="Numero invalido"
-                  ref="telephoneInput"
-                  />
-                <Input label="Email"
-                  type="email"
-                  onChange={this.onEmailChange.bind(this)}
-                  value={this.state.email}
-                  validationFunction={validateEmail}
-                  validationMessage="Email invalido"
-                  ref="emailInput"
-                  />
-                  <ControlLabel>Mensagem(opcional)</ControlLabel>
-                  <textarea 
-                    className="form-control"
-                    onChange={this.onMessageChange.bind(this)}
-                  />
-                  <Button bsSize="lg"
-                    id="bid-submit-button"
-                    className="form-control"
-                    onClick={this.handleSubmit.bind(this)}
-                    disabled={this.state.sent}
-                  >
-                    {this.state.buttonText}
-                  </Button>
-                </Col>
-              </Col>
-            </div>
-          </div>
-      )
-    }
+  render() {
+    return (
+      <div id="bid-form">
+        <div className="row">
+          <Col xs={12} id="bid-form-padding">
+            <Col xs={12} sm={8} smOffset={2} >
+              <Input label="Nome"
+                onChange={this.onNameChange.bind(this)}
+                value={this.state.name}
+                validationFunction={this.isNotEmpty.bind(this)}
+                validationMessage="Campo obrigatorio"
+                ref="nameInput"
+              />
+              <Input label="Sobrenome"
+                onChange={this.onLastNameChange.bind(this)}
+                value={this.state.lastName}
+                validationFunction={this.isNotEmpty.bind(this)}
+                validationMessage="Campo obrigatorio"
+                ref="lastNameInput"
+              />
+              <Input label="Celular"
+                onChange={this.onPhoneChange.bind(this)}
+                value={this.state.phone}
+                validationFunction={validateTelephone}
+                validationMessage="Numero invalido"
+                ref="phoneInput"
+              />
+              <Input label="Telefone"
+                onChange={this.onTelephoneChange.bind(this)}
+                value={this.state.telephone}
+                validationFunction={validateTelephone}
+                validationMessage="Numero invalido"
+                ref="telephoneInput"
+              />
+              <Input label="Email"
+                type="email"
+                onChange={this.onEmailChange.bind(this)}
+                value={this.state.email}
+                validationFunction={validateEmail}
+                validationMessage="Email invalido"
+                ref="emailInput"
+              />
+
+            <FormGroup className="row">
+              <ControlLabel>Mensagem(opcional)</ControlLabel>
+              <textarea 
+                className="form-control"
+                onChange={this.onMessageChange.bind(this)}
+              />
+            </FormGroup>
+            <Button bsSize="lg"
+              id="bid-submit-button"
+              className="form-control"
+              onClick={this.handleSubmit.bind(this)}
+              disabled={this.state.sent}
+            >
+              {this.state.buttonText}
+            </Button>
+          </Col>
+        </Col>
+      </div>
+    </div>
+    )
+  }
 }

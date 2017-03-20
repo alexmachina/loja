@@ -8,10 +8,54 @@
 
 }
 
+.no-padding{
+  padding:0
+}
 
+#logo{
+display:inline;
+}
+
+.text-logo{
+  display:inline;
+}
+
+.no-margin {
+  margin:0
+}
+
+.no-margin-top {
+  margin-top:0
+}
 
 .menu-sub-item {
   a{
   font-size:18px;
 }
 }
+
+a{
+  color:black;
+}
+
+.menu-item{
+  a{
+    font-size:18px;
+  }
+  margin-top:100px;
+}
+
+.logo-text{
+  margin-top:75px;
+}
+
+#art-lazer-text {
+  margin-top:0;
+  font-size:22px;
+}
+
+#art-lazer-title {
+  font-weight:bolder;
+  font-size:36px;
+}
+

@@ -22,13 +22,13 @@ export default class FeaturedProducts extends React.Component {
     
     return (
       <div id="featured-products-container"
-        className="container text-center">
+        className="container-fluid text-center">
         <Jumbotron>
           <h1>Mais Vendidos</h1>
         </Jumbotron>
         <Row>
           {this.state.products.map(p => (
-            <Col xs={12} sm={6} md={4} className="text-center">
+            <Col xs={12} sm={6} md={3} className="text-center">
               <Link to={`/produto/${p.name}`}>
                 <Image responsive src={`/img/products/${p.mainImage}`} circle />
                 <h3 style={{color: 'black'}}>{p.name}</h3>

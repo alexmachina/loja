@@ -14,13 +14,15 @@ export class CategoryRepository {
   }
 
   getAllCategories(cb){
+    return new Promise((resolve, reject) => {
     fetch(this.baseUrl+'/allCategories')
-    .then(response => {
-      if(response.ok) {
-        response.json().then(json => {
-          cb(json);
+        .then(response => {
+          if(response.ok) {
+            response.json().then(json => {
+              resolve(json);
+            })
+          } else {console.log(response.body)}
         })
-      } else {console.log(response.body)}
     })
   }
 
@@ -38,17 +40,17 @@ export class CategoryRepository {
   getCategoryByName(name, cb) {
     return new Promise((resolve, reject) => {
       fetch(this.baseUrl + '/categoryByName/' + name)
-      .then(response => {
-        if(response.ok) {
-          response.json().then(json => {
-            resolve(json);
-          });
-        } else {
-          response.text().then(text => {
-            reject(text);
-          });
-        }
-      });
+        .then(response => {
+          if(response.ok) {
+            response.json().then(json => {
+              resolve(json);
+            });
+          } else {
+            response.text().then(text => {
+              reject(text);
+            });
+          }
+        });
     });
   }
   getCategoriesCount(cb) {

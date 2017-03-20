@@ -63,7 +63,7 @@ export class ProductInfo extends React.Component {
         {priceSection}
         <h3>{this.props.description}</h3>
                <Col sm={12} id="quantity-col">
-          <label>Quantidade </label>
+          <label style={{marginRight: '5px'}}>Quantidade </label>
           <input type="text" onChange={this.handleQuantityChange.bind(this)}
             value={this.state.quantity} />
         </Col>

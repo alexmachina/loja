@@ -4,6 +4,8 @@ import {Row, Col, FormGroup,
   Button} from 'react-bootstrap'
 import './styles/styles.scss'
 import {ContactRepository} from  '../../repositories/contact.js'
+import {Input} from '../../components/Input.jsx'
+import ContactFormStore from '../../stores/contactFormStore.js'
 
 export class ContactPage extends React.Component{
   constructor(props) {
@@ -23,34 +25,35 @@ export class ContactPage extends React.Component{
 
 
   }
-  getNameValidationState() {
-    if (this.state.name) {
-      return 'success'
-    } else {
-      return 'error' 
-    }
-  }
-  getEmailValidationState() {
-    if(this.state.email)
-      return 'success'
+  validateName(name) {
+    if(name)
+      return true
     else
-      return 'error'
+      return false
   }
 
-  getSubjectValidationState() {
-    if(this.state.subject)
-      return 'success'
+  validateEmail(email) {
+    if(email)
+      return true
     else
-      return 'error'
+      return false
   }
 
-  getMessageValidationState() {
-    if(this.state.message)
-      return 'success'
+  validateSubject(subject) {
+    if(subject)
+      return true
     else
-      return 'error'
+      return false
   }
-  onNameChange(e) {
+
+  validateMessage(message) {
+    if(message) 
+      return true
+    else
+      return false
+  }
+
+    onNameChange(e) {
     if(e.target.value.length < 50)
       this.setState({name: e.target.value})
   }
@@ -71,22 +74,41 @@ export class ContactPage extends React.Component{
     if(e.target.value.length < 50)
       this.setState({message: e.target.value})
   }
+  
+  validateState() {
+    let isValid = true
+    if(!this.state.name) 
+      isValid = false
+    if(!this.state.email)
+      isValid = false
+    if(!this.state.subject)
+      isValid = false
+
+    return isValid
+  }
 
   onSubmit(e){
     e.preventDefault()
-    if(!this.state.formSubmited) {
-      this.setState({buttonText: 'Enviando...',
-        buttonDisabled: true})
 
-      this.rep.sendContactMessage(this.state).then(() => {
-        this.setState({ 
-          formSubmited: true,
-          buttonText: 'Mensagem Enviada',
-          buttonDisabled: false
+    this.refs.nameInput.onBlur(this.state.name)
+    this.refs.emailInput.onBlur(this.state.email)
+    this.refs.subjectInput.onBlur(this.state.subject)
 
-        })
+    if(this.validateState()) {
+      if(!this.state.formSubmited) {
+        this.setState({buttonText: 'Enviando...',
+          buttonDisabled: true})
 
-      }).catch(err => console.log(err))
+        this.rep.sendContactMessage(this.state).then(() => {
+          this.setState({ 
+            formSubmited: true,
+            buttonText: 'Mensagem Enviada',
+            buttonDisabled: false
+
+          })
+
+        }).catch(err => console.log(err))
+      }
     }
   }
   render() {
@@ -97,63 +119,59 @@ export class ContactPage extends React.Component{
           <h2>Envie-nos uma mensagem!</h2>
         </Col>
         <Row>
-          <Col xs={12} id="bid-form-padding">
-            <form onSubmit={this.onSubmit.bind(this)}>
-              <FormGroup 
-                controlId="nameInput"
-                validationState={this.getNameValidationState()}
-              >
-                <ControlLabel>Nome</ControlLabel>
-                <FormControl
-                  onChange={this.onNameChange.bind(this)}
-                  value={this.state.name}
-                  placeholder="Seu nome..."
-                />
-              </FormGroup>
-              <FormGroup
-                controlId="emailInput"
-                validationState={this.getEmailValidationState()}
-              >
-                <ControlLabel>Email</ControlLabel>
-                <FormControl
-                  onChange={this.onEmailChange.bind(this)}
-                  value={this.state.email}
-                  placeholder="Seu email..."
-                />
-              </FormGroup>
-              <FormGroup
-                controlId="subjectInput"
-                validationState={this.getSubjectValidationState()}
-              >
-                <ControlLabel>Assunto</ControlLabel>
-                <FormControl
-                  onChange={this.onSubjectChange.bind(this)}
-                  value={this.state.subject}
-                  placeholder="Assunto..."
-                />
-              </FormGroup>
+          <Col id="bid-form-padding" xs={12} >
+            <Col xs={12} md={8} mdOffset={2} id="bid-form-padding">
+              <form onSubmit={this.onSubmit.bind(this)}>
+                <FormGroup>
+                  <Input type="text"
+                    label="Nome"
+                    onChange={this.onNameChange.bind(this)}
+                    validationFunction={this.validateName.bind(this)}
+                    validationMessage="Obrigatório"
+                    ref="nameInput"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Input type="email"
+                    label="Email"
+                    onChange={this.onEmailChange.bind(this)}
+                    validationFunction={this.validateEmail.bind(this)}
+                    validationMessage="Obrigatório"
+                    ref="emailInput"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Input 
+                    label="Assunto"
+                    type="text"
+                    onChange={this.onSubjectChange.bind(this)}
+                    validationFunction={this.validateSubject.bind(this)}
+                    validationMessage="Obrigatório"
+                    ref="subjectInput"
+                  />
+                </FormGroup>
 
-              <FormGroup
-                controlId="messageInput"
-                validationState={this.getMessageValidationState()}
-              >
-                <ControlLabel>Mensagem</ControlLabel>
-                <FormControl
-                  componentClass="textarea"
-                  onChange={this.onMessageChange.bind(this)}
-                  value={this.state.message}
-                />
-              </FormGroup>
-              <Col xs={12} className="text-center">
-                <Button bsSize="lg"
-                  type="submit"
-                  id="bid-submit-button"
-                  disabled={this.state.buttonDisabled}
-                >
-                  {this.state.buttonText}
-                </Button>
-              </Col>
-            </form>
+                <Row>
+                  <FormGroup>
+                    <ControlLabel>Mensagem</ControlLabel>
+                    <FormControl
+                      componentClass="textarea"
+                      onChange={this.onMessageChange.bind(this)}
+                      value={this.state.message}
+                    />
+                  </FormGroup>
+                </Row>
+                <Col xs={12} className="text-center">
+                  <Button bsSize="lg"
+                    type="submit"
+                    id="bid-submit-button"
+                    disabled={this.state.buttonDisabled}
+                  >
+                    {this.state.buttonText}
+                  </Button>
+                </Col>
+              </form>
+            </Col>
           </Col>
         </Row>
 

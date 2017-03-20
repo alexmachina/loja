@@ -1,5 +1,5 @@
 body {
-  font-family: 'Open Sans Condensed', cursive;
+  font-family: 'Comfortaa', cursive;
 }
 #menu {
   background-color:#4dd2ff;
@@ -30,4 +30,8 @@ body {
 #featured-products-container {
   margin-top:50px;
 
+}
+
+.container-fluid { 
+  padding:0
 }
