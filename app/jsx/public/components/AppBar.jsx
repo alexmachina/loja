@@ -64,7 +64,7 @@ export class AppBar extends React.Component {
             </Col>
             <Col xs={12} md={2} className="logo-text" >
               <h1 id="art-lazer-title">
-                Art & Lazer 
+                Art & Lazer -DEV
               </h1>
               <h1 id="art-lazer-text">
                 Ambientes externos
