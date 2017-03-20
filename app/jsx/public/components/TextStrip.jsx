@@ -15,16 +15,16 @@ export default class TextStrip extends React.Component {
             </div>
           </div>
 
-            <div className="item">
-              <div className="text-center strip-container">
-                <h1 id="text-strip"> 
-                  Faça um orçamento!
-                  </h1>
-              </div>
+          <div className="item">
+            <div className="text-center strip-container">
+              <h1 id="text-strip"> 
+                Faça um orçamento!
+              </h1>
             </div>
-
           </div>
+
         </div>
-        )
-        }
-        }
+      </div>
+    )
+  }
+}
