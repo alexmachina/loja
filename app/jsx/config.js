@@ -1,9 +1,9 @@
-let env = 'development'
+let env = 'production'
 let url = 'http://localhost:3000'
 
 console.log(env)
 if(env == 'production') {
-  url = 'https://serene-brushlands-57199.herokuapp.com'
+  url = 'https://artelazermoveis.com.br'
 }
 
 let config = {
