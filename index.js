@@ -6,10 +6,11 @@ const express = require('express'),
       fs = require('fs'),
       https = require('https');
 
+require('dotenv').config()
 let app = express();
 
 app.set('port', (process.env.PORT || 8081))
-app.set('mongodbURI', ('mongodb://loja:cthulhu1@localhost:27018/loja'))
+app.set('mongodbURI', process.env.MONGODB_URL)
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use('/',express.static('app'));
@@ -26,21 +27,6 @@ app.use(function (req, res, next) {
 
 app.post('/login', userCtrl.login);
 app.use(router);
-
-/*
-https.createServer({
-	key: fs.readFileSync('privkey.pem'),
-	cert: fs.readFileSync('fullchain.pem')
-}, app).listen(app.get('port'), (err,err2) => { 
-	if(err)
-		console.log(err)
-	else
-		console.log("Up at port: " + app.get('port'))
-})
-
-
-mongoose.connect(app.get('mongodbURI'))
-*/
 
 app.listen(app.get('port'), err => {
   err ? console.log(err) :console.log("Running: " + app.get('port'));

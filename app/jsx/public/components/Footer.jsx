@@ -12,8 +12,8 @@ export class Footer extends React.Component {
       </Col>
       <Col xs={12} sm={4} className="text-right">
         <h3><Glyphicon glyph="envelope" / > artelazer@outlook.com</h3>
-        <h3><Glyphicon glyph="earphone" />(11) 4704-3084</h3>
-        <h3><Glyphicon glyph="phone" />(11) 99754-9445</h3>
+        <h3><Glyphicon glyph="earphone" />(11) 4321-1178</h3>
+        <h3><Glyphicon glyph="phone" />(11) 94764-7445</h3>
       </Col>
     </div>
   )
